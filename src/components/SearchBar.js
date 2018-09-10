@@ -1,6 +1,5 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import { Input } from "@material-ui/core";
+import ReactDOM from "react-dom";
 import Search from "@material-ui/icons/Search";
 import LocationSearching from "@material-ui/icons/LocationSearching";
 import FilterList from "@material-ui/icons/FilterList";
@@ -8,8 +7,12 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 import Avatar from "@material-ui/core/Avatar";
+import ResultsList from "./ResultsList";
 
 export default class SearchBar extends React.Component {
+  search() {
+    this.props.search(document.querySelector("#query").value);
+  }
   render() {
     return (
       <Grid
@@ -22,18 +25,10 @@ export default class SearchBar extends React.Component {
         <Avatar>
           <FilterList />
         </Avatar>
-        <TextField
-          id="full-width"
-          label="Search"
-          InputLabelProps={{
-            shrink: true
-          }}
-          style={{ width: 600 }}
-          placeholder="Search Name,MFL code or location"
-          margin="normal"
-        />
+        <input type="text" id="query" placeholder="Enter facility Name" />
+
         <Avatar>
-          <Search />
+          <Search onClick={this.search.bind(this)} />
         </Avatar>
         <Avatar>
           <LocationSearching />

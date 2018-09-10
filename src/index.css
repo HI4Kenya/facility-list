@@ -4,6 +4,8 @@ body {
   padding: 0;
   height: 100%;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  background: url(bg2.jpg);
+  background-size: cover;
 }
 #root {
   background-color: #fff;

@@ -1,46 +1,38 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
-import WorkIcon from "@material-ui/icons/Work";
-import BeachAccessIcon from "@material-ui/icons/BeachAccess";
-import Paper from "@material-ui/core/Paper";
+import SearchResult from "./SearchResult";
 
 export default class ResultsList extends React.Component {
+  constructor(props) {
+    super(props);
+    var res = this.props.list;
+    this.state = {
+      data: res
+    };
+  }
+
   render() {
-    return (
-      <List>
-        <ListItem>
-          <Paper>
-            <Avatar>
-              <ImageIcon />
-            </Avatar>
-            <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-          </Paper>
-        </ListItem>
+    let result = this.props.list;
+    console.log("Rendering ResultsList...");
+    console.log(result);
 
-        <ListItem>
-          <Paper>
-            <Avatar>
-              <WorkIcon />
-            </Avatar>
-            <ListItemText primary="Work" secondary="Jan 7, 2014" />
-          </Paper>
-        </ListItem>
-
-        <ListItem>
-          <Paper>
-            <Avatar>
-              <BeachAccessIcon />
-            </Avatar>
-            <ListItemText primary="Vacation" secondary="July 20, 2014" />
-          </Paper>
-        </ListItem>
-      </List>
-    );
+    if (this.props.list.length == 0) {
+      return (
+        <div>
+          <h1>Nothing was found!!</h1>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>Found the folowing results</h1>
+          <ul>
+            {this.props.list.map(facility => (
+              <SearchResult facility={facility} key={facility.id} />
+            ))}
+          </ul>
+        </div>
+      );
+    }
   }
 }
