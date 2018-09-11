@@ -1,39 +1,58 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import Search from "@material-ui/icons/Search";
-import LocationSearching from "@material-ui/icons/LocationSearching";
-import FilterList from "@material-ui/icons/FilterList";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-
-import Avatar from "@material-ui/core/Avatar";
-import ResultsList from "./ResultsList";
+import "./SearchBar.css";
 
 export default class SearchBar extends React.Component {
+  state = {
+    searchterm: ""
+  };
+
   search() {
-    this.props.search(document.querySelector("#query").value);
+    console.log(this.state.searchterm);
+    this.props.search(this.state.searchterm);
+  }
+  queryTermChangedHandler(e) {
+    e.preventDefault();
+    this.setState({ searchterm: e.target.value });
   }
   render() {
     return (
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        xs={24}
-      >
-        <Avatar>
-          <FilterList />
-        </Avatar>
-        <input type="text" id="query" placeholder="Enter facility Name" />
-
-        <Avatar>
-          <Search onClick={this.search.bind(this)} />
-        </Avatar>
-        <Avatar>
-          <LocationSearching />
-        </Avatar>
-      </Grid>
+      <div className="searchbar">
+        <form onSubmit={this.search.bind(this)}>
+          <div class="input-group input-group-lg">
+            <div class="input-group-append">
+              <span class="input-group-text" id="inputGroup-sizing-lg">
+                <i class="material-icons">filter_list</i>
+              </span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              aria-label="Large"
+              aria-describedby="inputGroup-sizing-sm"
+              value={this.state.searchterm}
+              onChange={this.queryTermChangedHandler.bind(this)}
+              placeholder="Search Facility Name or code or Location..."
+              aria-label="Search Facility Name or code or Location..."
+            />
+            <div className="input-group-append">
+              <button
+                className="input-group-text"
+                id="inputGroup-sizing-lg"
+                class="btn btn-outline-secondary"
+                type="button"
+                onClick={this.search.bind(this)}
+              >
+                <i class="material-icons">search</i>
+              </button>
+              <div class="input-group-append">
+                <span class="input-group-text" id="inputGroup-sizing-lg">
+                  <i class="material-icons">location_on</i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     );
   }
 }

@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import "./index.css";
+import "./bootstrap.min.css";
 
 const rootElement = document.querySelector("#root");
-var results = [];
+var anything = [];
 const headers = {
   headers: {
-    Authorization: "Bearer LtW29Wxa7lAnNj8EdyVMr2h5ISWhSF"
+    Authorization: "Bearer iCRJMQNlMestplr0pgqPSM5fmEYgxj"
   }
 };
 getFacilities();
@@ -17,8 +19,8 @@ function getFacilities() {
   )
     .then(fetchData => fetchData.json())
     .then(jsonData => {
-      results = jsonData.results;
-      ReactDOM.render(<App results={results} />, rootElement);
+      anything = jsonData.results;
+      ReactDOM.render(<App results={anything} />, rootElement);
     })
     .catch(error => {
       console.log("Error", error);

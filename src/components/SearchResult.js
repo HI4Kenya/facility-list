@@ -1,16 +1,19 @@
 import React, { Component } from "react";
-import { ListItem } from "material-ui";
+import { Paper } from "@material-ui/core";
 
 export default class SearchResult extends Component {
   render() {
     return (
-      <li>
-        <div>
-          <h3>{this.props.facility.name}</h3>
-          <h4>{this.props.facility.code}</h4>
-          <h4>{this.props.facility.official_name}</h4>
-        </div>
-      </li>
+      <div>
+        <Paper>
+          <span>
+            <h2>
+              {this.props.facility.code}|{this.props.facility.name}
+            </h2>
+          </span>
+          <h5>{this.props.facility.official_name}</h5>
+        </Paper>
+      </div>
     );
   }
 }

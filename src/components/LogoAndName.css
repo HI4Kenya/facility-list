@@ -1,3 +1,9 @@
-.LogoAndName{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+/* GOOGLE AREA */
+.google #google_logo {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  clear: both;
+  padding-bottom: 20px;
+  font-size: 5em;
 }

@@ -1,4 +1,9 @@
 .App {
-  text-align: center;
-  height: 100%;
+  margin: 0;
+  padding-top: 8%;
+  padding-left: 10%;
+  width: 80%;
+}
+.results {
+  align-items: 10%;
 }

@@ -8,25 +8,26 @@ export default class App extends Component {
   constructor() {
     super();
     this.search = this.search.bind(this);
-    this.findName = this.findName.bind(this);
     this.state = {
       results: [],
       query: "",
       data: []
     };
   }
-  findName(currentFacility) {
-    return this.state.query === currentFacility.name;
-  }
 
-  search(query) {
-    this.state.query = query;
-
-    var myresults = [this.state.data.find(this.findName)];
+  searchCounty(searchterm) {
+    this.state.query = searchterm;
+    var listofres = [];
+    for (let x = 0; x < this.state.data.length; x++) {
+      if (this.state.data[x].name.indexOf(this.state.query) !== -1) {
+        listofres.push(this.state.data[x]);
+        console.log(this.state.results);
+      }
+    }
 
     this.setState({
-      results: myresults,
-      query: "",
+      results: listofres,
+      query: searchterm,
       data: [...this.state.data]
     });
     console.log("Done searching and found");
@@ -36,6 +37,91 @@ export default class App extends Component {
     }
   }
 
+  searchSubCounty(searchterm) {
+    this.state.query = searchterm;
+    var listofres = [];
+    for (let x = 0; x < this.state.data.length; x++) {
+      if (this.state.data[x].name.indexOf(this.state.query) !== -1) {
+        listofres.push(this.state.data[x]);
+        console.log(this.state.results);
+      }
+    }
+
+    this.setState({
+      results: listofres,
+      query: searchterm,
+      data: [...this.state.data]
+    });
+    console.log("Done searching and found");
+    console.log(this.state);
+    if (!this.state.results) {
+      alert("Nothing found");
+    }
+  }
+
+  searchName(searchterm) {
+    this.state.query = searchterm;
+    var listofres = [];
+    for (let x = 0; x < this.state.data.length; x++) {
+      if (this.state.data[x].name.indexOf(this.state.query) !== -1) {
+        listofres.push(this.state.data[x]);
+        console.log(this.state.results);
+      }
+    }
+    this.setState({
+      results: listofres,
+      query: searchterm,
+      data: [...this.state.data]
+    });
+    console.log("Done searching and found");
+    console.log(this.state);
+    if (!this.state.results) {
+      alert("Nothing found");
+    }
+  }
+
+  searchCode(searchterm) {
+    this.state.query = searchterm;
+    var listofres = [];
+    for (let x = 0; x < this.state.data.length; x++) {
+      if (this.state.data[x].code.indexOf(this.state.query) !== -1) {
+        listofres.push(this.state.data[x]);
+        console.log(this.state.results);
+      }
+    }
+
+    this.setState({
+      results: listofres,
+      query: searchterm,
+      data: [...this.state.data]
+    });
+    console.log("Done searching and found");
+    console.log(this.state);
+    if (!this.state.results) {
+      alert("Nothing found");
+    }
+  }
+  search(searchterm) {
+    this.state.query = searchterm;
+    var listofres = [];
+    for (let x = 0; x < this.state.data.length; x++) {
+      if (this.state.data[x].name.indexOf(this.state.query) !== -1) {
+        listofres.push(this.state.data[x]);
+        console.log(this.state.results);
+      }
+    }
+
+    this.setState({
+      results: listofres,
+      query: searchterm,
+      data: [...this.state.data]
+    });
+    console.log("Done searching and found");
+    console.log(this.state);
+    if (!this.state.results) {
+      alert("Nothing found");
+    }
+  }
   render() {
     var results = this.props.results;
     this.state.data = results;
@@ -43,11 +129,9 @@ export default class App extends Component {
     console.log(this.state.data);
     return (
       <div className="App">
-        <div>
-          <LogoAndName />
-          <SearchBar search={this.search} />
-          <ResultsList list={this.state.results} />
-        </div>
+        <LogoAndName className="logo" />
+        <SearchBar search={this.search} className="searchbar" />
+        <ResultsList list={this.state.results} className="results" />
       </div>
     );
   }

@@ -1,5 +1,4 @@
 import React from "react";
-import List from "@material-ui/core/List";
 import SearchResult from "./SearchResult";
 
 export default class ResultsList extends React.Component {
@@ -16,21 +15,21 @@ export default class ResultsList extends React.Component {
     console.log("Rendering ResultsList...");
     console.log(result);
 
-    if (this.props.list.length == 0) {
+    if (this.props.list.length === 0) {
       return (
         <div>
-          <h1>Nothing was found!!</h1>
+          <h3>Nothing was found!!</h3>
         </div>
       );
     } else {
       return (
         <div>
-          <h1>Found the folowing results</h1>
-          <ul>
+          <h3>Found the folowing results</h3>
+          <ol>
             {this.props.list.map(facility => (
               <SearchResult facility={facility} key={facility.id} />
             ))}
-          </ul>
+          </ol>
         </div>
       );
     }
