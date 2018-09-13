@@ -8,7 +8,7 @@ const rootElement = document.querySelector("#root");
 var anything = [];
 const headers = {
   headers: {
-    Authorization: "Bearer iCRJMQNlMestplr0pgqPSM5fmEYgxj"
+    Authorization: "Bearer 77LbbYBtDbQS4SWPLANGW5hfx5zKfg"
   }
 };
 getFacilities();

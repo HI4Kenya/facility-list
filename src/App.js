@@ -95,7 +95,6 @@ export default class App extends Component {
       query: searchterm,
       data: [...this.state.data]
     });
-    console.log("Done searching and found");
     console.log(this.state);
     if (!this.state.results) {
       alert("Nothing found");
@@ -107,7 +106,6 @@ export default class App extends Component {
     for (let x = 0; x < this.state.data.length; x++) {
       if (this.state.data[x].name.indexOf(this.state.query) !== -1) {
         listofres.push(this.state.data[x]);
-        console.log(this.state.results);
       }
     }
 
@@ -116,8 +114,6 @@ export default class App extends Component {
       query: searchterm,
       data: [...this.state.data]
     });
-    console.log("Done searching and found");
-    console.log(this.state);
     if (!this.state.results) {
       alert("Nothing found");
     }
@@ -125,8 +121,6 @@ export default class App extends Component {
   render() {
     var results = this.props.results;
     this.state.data = results;
-    console.log("Inside App");
-    console.log(this.state.data);
     return (
       <div className="App">
         <LogoAndName className="logo" />
