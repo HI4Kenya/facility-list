@@ -8,16 +8,17 @@
 
 ## Task List
 ### Peter njoki
- [] Back-end
+ -[ ] Back-end.
  
+ -[ ] Part of Front-end
 
 ### Grace Mbira
- []
+ -[ ] Visualisation
 
 ### Peter Kiarie
- []
+ -[ ] Front-end
  
 
 ### GIfton Omwenga
- []Documentation
+ -[ ]Documentation
  
