@@ -1,0 +1,78 @@
+<html>
+    <header>
+        <title>CHART by code </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <Script src="Chart.js"></Script>
+        <body>
+            <h1 style="text-align:center"><b><u>Organisation Units</u></b></h1>
+            <div class="container">
+                        <button type="button" class="btn">Kenya</button>
+                        <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">County
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">Kisumu</a></li>
+                                  <li><a href="#">Kakamega</a></li>
+                                  <li><a href="#">Kericho</a></li>
+                                </ul>
+                            </div>
+                                <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sub County
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                          <li><a href="#">Seme</a></li>
+                                          <li><a href="#">Nyando</a></li>
+                                          <li><a href="#">Kisumu East</a></li>
+                                        </ul>
+                              </div>
+                        </div>
+                 <div id="chartContainer" style="padding-left:30%; height:40px;">
+                    <canvas id="myChart" width="100%" height="80%"></canvas>
+                </div>
+                <script>
+                var ctx = document.getElementById("myChart").getContext('2d');
+                ctx.fillStyle = "#CCCCFF";
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        
+                        labels: ["Kisumu", "Kakamega", "Kericho", "Homabay", "Nairobi", "Uasin Gishu"],
+                        datasets: [{
+                            titleFontStyle: 'bold',
+                            label: 'percentage number of confilcts in given code per county',
+                            data: [20, 33, 44, 56, 0, 40],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+                </script>
+        </body>
+    </header>
+</html>
