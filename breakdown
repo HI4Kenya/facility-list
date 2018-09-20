@@ -16,18 +16,18 @@ http://api.kmhfltest.health.go.ke/api/facilities/services/?format=json&page_size
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 /api/facilities/facilities/?county=fa47afa2-a78a-421f-ad9f-55e6cbfc280c
 
-	7. How the various GEO codes translate into a map
+	7. How the various GEO codes translate into a map-----------------------------------------DONE
+	http://api.kmhfltest.health.go.ke/api/facilities/facilities/?fields=lat_long&format=json&page_size=11133
+	create markers and add the points from the API end point and add them to the google maps
 
+	8. do you filter data already in the search results or all the data in the system.---------------------------------------DONE Prefer to have an option to switch between the two options
 
-
-
-	8. do you filter data already in the search results or all the data in the system.
 
 C. create the UI with dummy data.
-	1. Home page with auto detect counties, sub counties, wards codes 
+	1. Home page with auto detect counties, sub counties, wards codes  
 	2. The Filters drop down with working filters
 	3. The Map with dummy locations
-	4. How to transition from one page to another in REACT -routing and be able to transition to results page.
+	4. How to transition from one page to another in REACT -routing and be able to transition to results page................................................use react router
 	5. Display the results with the search bar at the top left and the results in CARDS with a Summary and detail functionality
 
 D. Creating The Fuctions for each of the B subtasks
