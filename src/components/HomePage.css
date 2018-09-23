@@ -1,0 +1,44 @@
+.holder {
+  padding-top: 1%;
+  position: relative;
+  z-index: 1;
+}
+
+.homepage {
+  background: url("./bg7.jpg") center / cover no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+.logo {
+  padding-top: 2%;
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home_filteroptions {
+  margin-left: 25%;
+  margin-right: 25%;
+  width: inherit;
+}
+.home_title {
+  text-align: center;
+  font-size: 5em;
+  font-family: "Canterbury";
+  color: #3c3c3c;
+  padding-top: 30px;
+}
+.home_searchbar {
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 10px;
+}
+.faze {
+  position: absolute;
+  z-index: auto;
+  height: 100%;
+  width: 100%;
+  opacity: 0.9;
+  background-image: linear-gradient(to bottom, #dddddd 30%, #0d79b8 100%);
+}
