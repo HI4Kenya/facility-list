@@ -3,8 +3,10 @@ import React, { Component } from "react";
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { redirect: false };
+
+    this.state = { redirect: false, term: "" };
     this.searchHandler = this.searchHandler.bind(this);
+    this.valueChanged = this.valueChanged.bind(this);
   }
 
   searchHandler(e) {
@@ -13,7 +15,24 @@ class SearchBar extends Component {
     this.props.search(queryterm);
   }
 
+  valueChanged(e) {
+    var valuesofar = e.target.value;
+    this.setState({
+      redirect: this.state.redirect,
+      term: valuesofar
+    });
+  }
+
+  componentWillReceiveProps(nxt) {
+    var valuesofar = nxt.term;
+    this.setState({
+      redirect: this.state.redirect,
+      term: valuesofar
+    });
+  }
   render() {
+    console.log("rendering searchbar", this.props);
+
     return (
       <div
         className={this.props.cname}
@@ -70,6 +89,7 @@ class SearchBar extends Component {
                 border: "none",
                 borderRadius: "0"
               }}
+              onChange={this.valueChanged.bind(this)}
               id="query"
               placeholder="Search Facility Name, MFL code or Location..."
               aria-label="Search Facility Name, MFL code or Location..."

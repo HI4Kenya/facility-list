@@ -33,11 +33,19 @@ async function getToken() {
 }
 
 export async function searchTerm(term) {
+  var term_lowercase = term.toLowerCase();
   var res = await getToken().then(async function my(token) {
     var settings = {
       async: true,
       crossDomain: true,
-      url: facilities_endpoint + "?search=" + term + "&page_size=5&format=json",
+      url:
+        facilities_endpoint +
+        "?search=" +
+        term +
+        "&" +
+        "search=" +
+        term_lowercase +
+        "&page_size=5&format=json",
       method: "GET",
       headers: {
         Authorization: "Bearer " + token.access_token,

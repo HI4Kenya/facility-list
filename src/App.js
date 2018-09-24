@@ -9,16 +9,19 @@ class App extends Component {
     super(props);
     this.searchTerm = this.searchTerm.bind(this);
     this.state = {
-      results: []
+      results: [],
+      progress: 0,
+      term: ""
     };
   }
 
   searchTerm(term) {
     console.log("Inside the App.js searching ", term, "....");
-
     searchTerm(term).then(res => {
       this.setState({
-        results: res
+        results: res,
+        progress: 1,
+        term: term
       });
     });
   }
@@ -46,7 +49,8 @@ class App extends Component {
                 <ResultsPage
                   search={this.searchTerm}
                   results={this.state.results}
-                  term={"Kenya"}
+                  term={this.state.term}
+                  progress={this.state.progress}
                 />
               </div>
             )}

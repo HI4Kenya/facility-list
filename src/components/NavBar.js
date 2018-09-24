@@ -8,14 +8,20 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
     this.search = this.search.bind(this);
-    this.state = {};
+    this.state = { term: "" };
   }
   search(queryterm) {
     console.log("Inside Nav search fn");
     this.props.search(queryterm);
   }
+  componentWillReceiveProps(nxt) {
+    this.setState({
+      term: nxt.term
+    });
+  }
 
   render() {
+    console.log("rendering navbar ", this.state.term);
     return (
       <div className="mynav bg-light">
         <nav className="navbar navbar-expand-lg ">
@@ -23,7 +29,11 @@ class NavBar extends Component {
             <Title cname={"nav_title"} />
           </a>
           <div className="nav-item" style={{ width: "50%" }}>
-            <SearchBar cname={"nav_searchbar"} search={this.search} />
+            <SearchBar
+              cname={"nav_searchbar"}
+              term={this.props.term}
+              search={this.search}
+            />
           </div>
         </nav>
         <FilterOptions cname={"nav_filteroptions"} />
