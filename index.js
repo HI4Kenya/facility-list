@@ -10,13 +10,11 @@ const headers ={
 }
 }
 
-// DataSet function - View
 
 function OrganisationUnit({organisationunit}){
     return <div><a href={organisationunit.href}>{organisationunit.name}</a></div>;
 }
 
-// DataSet List
 
 function OrganisationUnitList({organisationunits}){
     return (
