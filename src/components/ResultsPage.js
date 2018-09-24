@@ -9,18 +9,13 @@ class ResultsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: [],
-      term: ""
+      results: []
     };
     this.search = this.search.bind(this);
   }
 
   search(queryterm) {
     console.log("Inside ResultsPage search fn", queryterm);
-    this.setState({
-      results: this.state.results,
-      term: queryterm
-    });
     this.props.search(queryterm);
   }
 
@@ -34,7 +29,7 @@ class ResultsPage extends Component {
     var currentres = this.props.results;
     return (
       <div className="resultspage">
-        <NavBar search={this.search} term={this.state.term} />
+        <NavBar search={this.search} term={this.props.term} />
         <div className="" style={{ paddingLeft: "177px" }}>
           <div className="tab-content" id="myTabContent">
             <div
