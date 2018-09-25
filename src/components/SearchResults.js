@@ -24,7 +24,7 @@ class SearchResults extends Component {
     console.log(this.state.progress);
 
     var progress = "searching...";
-    if (this.state.progress == 1) {
+    if (this.state.progress === 1) {
       progress = "found " + this.state.count + " results";
     }
 

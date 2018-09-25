@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import HomePage from "./components/HomePage";
 import ResultsPage from "./components/ResultsPage";
 import { BrowserRouter, Route } from "react-router-dom";
-import { searchTerm } from "./utils/worker.js";
+import { searchTerm, query } from "./utils/worker.js";
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +25,10 @@ class App extends Component {
       });
     });
   }
-  componentWillMount() {}
+
+  componentWillMount() {
+    query;
+  }
 
   render() {
     console.log("app.js,", this.state.results);

@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import "jquery";
 
 class Facility extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let facility = this.props.facility;
     var id = "facility" + this.props.id;
@@ -30,13 +27,24 @@ class Facility extends Component {
                 >
                   {facility.code}
                 </span>
-                |{facility.name}
+                <span className="h1">{facility.name}</span>
+                <span
+                  style={{
+                    background: "#008080",
+                    color: "#fff",
+                    float: "right"
+                  }}
+                >
+                  {facility.operation_status_name}
+                </span>
               </div>
             </div>
             <div className="card-body text-primary">
-              <h4 className="card-title">{facility.county_name}</h4>
+              <h6 className="card-text">{facility.location_desc}</h6>
+              County: <h4 className="card-title">{facility.county_name}</h4>
+              Sub County:{" "}
               <h5 className="card-title">{facility.sub_county_name}</h5>
-              <h6 className="card-text">{facility.ward_name}</h6>
+              Ward: <h6 className="card-text">{facility.ward_name}</h6>
             </div>
             <p>
               <button
@@ -52,22 +60,15 @@ class Facility extends Component {
             </p>
             <div className="collapse" id={id}>
               <div className="card card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. Nihil anim keffiyeh
-                helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                ea proident. Anim pariatur cliche reprehenderit, enim eiusmod
-                high life accusamus terry richardson ad squid. Nihil anim
-                keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                sapiente ea proident. Anim pariatur cliche reprehenderit, enim
-                eiusmod high life accusamus terry richardson ad squid. Nihil
-                anim keffiyeh helvetica, craft beer labore wes anderson cred
-                nesciunt sapiente ea proident. Anim pariatur cliche
-                reprehenderit, enim eiusmod high life accusamus terry richardson
-                ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes
-                anderson cred nesciunt sapiente ea proident. Anim pariatur
-                cliche reprehenderit, enim eiusmod high life accusamus terry
-                richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                labore wes anderson cred nesciunt sapiente ea proident.
+                {facility.facility_services.map(service => (
+                  <div
+                    className="alert alert-primary"
+                    key={service.service_code}
+                    role="alert"
+                  >
+                    {service.service_name}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

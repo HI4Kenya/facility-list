@@ -12,11 +12,18 @@ class SearchBar extends Component {
   searchHandler(e) {
     e.preventDefault();
     var queryterm = document.getElementById("query").value;
+
     this.props.search(queryterm);
   }
 
   valueChanged(e) {
     var valuesofar = e.target.value;
+    if (valuesofar.search(/[0-9]/i) === 0) {
+      document.getElementById("smartbtn").style = "display:block";
+      document.getElementById("smartbtn").innerHTML = valuesofar;
+    } else {
+      document.getElementById("smartbtn").style = "display:none";
+    }
     this.setState({
       redirect: this.state.redirect,
       term: valuesofar
@@ -31,8 +38,6 @@ class SearchBar extends Component {
     });
   }
   render() {
-    console.log("rendering searchbar", this.props);
-
     return (
       <div
         className={this.props.cname}
@@ -77,7 +82,7 @@ class SearchBar extends Component {
           <form
             autoComplete="off"
             onSubmit={this.searchHandler.bind(this)}
-            style={{ width: "85%" }}
+            style={{ width: "70%" }}
           >
             <input
               type="text"
@@ -101,6 +106,8 @@ class SearchBar extends Component {
               className="btn btn-outline-secondary"
               style={{ display: "none" }}
               type="button"
+              id="smartbtn"
+              onClick={this.searchHandler.bind(this)}
             >
               smart detect out
             </button>

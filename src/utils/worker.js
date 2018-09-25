@@ -32,6 +32,24 @@ async function getToken() {
   return y;
 }
 
+export async function query(url) {
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url: "http://api.kmhfltest.health.go.ke/api/common/counties/?format=json",
+    method: "GET",
+    headers: {
+      Authorization: "Bearer 298YfxgUsCT1zyfvQdfMO8ejN3Nos4",
+      "Cache-Control": "no-cache",
+      "Postman-Token": "df589197-1303-41ce-9eed-cb768cda3148"
+    }
+  };
+
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+  });
+}
+
 export async function searchTerm(term) {
   var term_lowercase = term.toLowerCase();
   var res = await getToken().then(async function my(token) {
