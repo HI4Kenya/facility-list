@@ -4,6 +4,8 @@ import ResultsPage from "./components/ResultsPage";
 import { BrowserRouter, Route } from "react-router-dom";
 import { searchTerm, query } from "./utils/worker.js";
 
+var counties = [];
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,11 +29,15 @@ class App extends Component {
   }
 
   componentWillMount() {
-    query;
+    query(
+      "http://api.kmhfltest.health.go.ke/api/common/counties/?format=json&page_size=47"
+    ).then(function f(data) {
+      counties = data;
+    });
   }
 
   render() {
-    console.log("app.js,", this.state.results);
+    console.log("app render with,", counties);
     return (
       <BrowserRouter>
         <div>

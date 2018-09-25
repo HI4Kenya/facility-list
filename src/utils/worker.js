@@ -33,21 +33,26 @@ async function getToken() {
 }
 
 export async function query(url) {
-  var settings = {
-    async: true,
-    crossDomain: true,
-    url: "http://api.kmhfltest.health.go.ke/api/common/counties/?format=json",
-    method: "GET",
-    headers: {
-      Authorization: "Bearer 298YfxgUsCT1zyfvQdfMO8ejN3Nos4",
-      "Cache-Control": "no-cache",
-      "Postman-Token": "df589197-1303-41ce-9eed-cb768cda3148"
-    }
-  };
+  var res = await getToken().then(async function my(token) {
+    console.log("gotten token in query", token.access_token);
 
-  $.ajax(settings).done(function(response) {
-    console.log(response);
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url: url,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
   });
+  return res;
 }
 
 export async function searchTerm(term) {

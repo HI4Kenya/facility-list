@@ -4,19 +4,24 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { redirect: false, term: "" };
+    this.state = { redirect: false, term: "", counties: [] };
     this.searchHandler = this.searchHandler.bind(this);
     this.valueChanged = this.valueChanged.bind(this);
+  }
+
+  searchCounty(e) {
+    e.preventDefault();
+    var queryterm = document.getElementById("query").value;
   }
 
   searchHandler(e) {
     e.preventDefault();
     var queryterm = document.getElementById("query").value;
-
     this.props.search(queryterm);
   }
 
   valueChanged(e) {
+    var counties = ["Nakuru", "Kisumu", "Mombasa", "Nairobi"];
     var valuesofar = e.target.value;
     if (valuesofar.search(/[0-9]/i) === 0) {
       document.getElementById("smartbtn").style = "display:block";
@@ -24,17 +29,26 @@ class SearchBar extends Component {
     } else {
       document.getElementById("smartbtn").style = "display:none";
     }
+
+    if (counties.indexOf(valuesofar) > -1) {
+      document.getElementById("smartbtn").style = "display:block";
+      document.getElementById("smartbtn").innerHTML = "All in " + valuesofar;
+    }
+
     this.setState({
       redirect: this.state.redirect,
-      term: valuesofar
+      term: valuesofar,
+      counties: this.state.counties
     });
   }
 
   componentWillReceiveProps(nxt) {
     var valuesofar = nxt.term;
+    console.log(nxt.counties);
     this.setState({
       redirect: this.state.redirect,
-      term: valuesofar
+      term: valuesofar,
+      counties: nxt.counties
     });
   }
   render() {
@@ -103,7 +117,7 @@ class SearchBar extends Component {
           </form>
           <div className="input-group-append" id="button-addon4">
             <button
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-primary"
               style={{ display: "none" }}
               type="button"
               id="smartbtn"

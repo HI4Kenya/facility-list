@@ -35,7 +35,11 @@ class HomePage extends Component {
         <div className="holder">
           <img src={logo} className="logo" alt="afya360logo" />
           <Title cname={"home_title"} />
-          <SearchBar cname={"home_searchbar"} search={this.search} />
+          <SearchBar
+            cname={"home_searchbar"}
+            search={this.search}
+            counties={this.props.counties}
+          />
           <FilterOptions cname={"home_filteroptions"} />
         </div>
       </div>
