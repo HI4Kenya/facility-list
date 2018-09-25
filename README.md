@@ -1,5 +1,40 @@
+
+
+
+
 #  *__...AFYA360 DOCUMENTATION.__*
 ==============================
+
+## Intoroduction
+---
+### The Gray Group have been working on an app that fetches KMHFL data into DHIS2. The app is user friendly as the user interface is appealing and easy to navigate. 
+### It saves alot af time for users as the HRIOs need not to get to KMHFL to check the official facilility lists.
+### We have integrated google maps with the app, for the physical refrence of the facility.
+
+
+## Project Backgroud
+---
+
+ Customer     :Ministry Of Health
+ -----------
+ TYpe         :Software Development
+ -----------
+ Topic        :Building an app that fetches KMHFL data into DHIS2
+ -----------
+ Technical Basis  : React (Java-Script, HTML, CSS,)
+ ---------------
+ Size        :4 people
+ -----------
+ Duration    :4weeks
+ -----------
+
+
+ 
+
+
+
+
+
 
 ## *Group Members:*
 ---
