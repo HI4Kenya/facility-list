@@ -1,10 +1,20 @@
 import React, { Component } from "react";
+import { runDHIS2Query } from "../utils/worker.js";
 
 class Updates extends Component {
   constructor(props) {
     super(props);
     this.state = { mfl_list: [], dhis2_list: [] };
   }
+
+  componentWillMount() {
+    runDHIS2Query("/organisationUnits.json?filter=code:eq:11122").then(
+      function fun(data) {
+        console.log(data);
+      }
+    );
+  }
+
   render() {
     return (
       <div>

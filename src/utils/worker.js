@@ -5,6 +5,7 @@ var client_secret =
   "Lf3lZv9XYG2p3S7nsy2sy580mDuB9ajDY6M39FIfEEzhNLua1LBY1LB1EV0NdQFClsqSvUnvpkDi8V7XTiVEXIzLtzH3MCMcO3SQblzbqlhpy97d2TamfSDsNoa6HVrJ";
 var facilities_endpoint =
   "http://api.kmhfltest.health.go.ke/api/facilities/facilities/";
+var dhis2url = "http://197.136.81.99:8082/test/api";
 
 async function getToken() {
   var settings = {
@@ -51,6 +52,26 @@ export async function customQuery(url) {
     return res;
   });
   return res;
+}
+
+export async function runDHIS2Query(query) {
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url: dhis2url + query,
+    method: "GET",
+    headers: {
+      Authorization: `Basic ${btoa(
+        "peterkahenyanjoki@gmail.com:Cephaspk@0100100110"
+      )}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  };
+
+  return $.ajax(settings).done(function(response) {
+    //console.log(response);
+    return response;
+  });
 }
 
 export async function getFacilities() {

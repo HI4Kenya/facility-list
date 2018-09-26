@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import HomePage from "./components/HomePage";
 import ResultsPage from "./components/ResultsPage";
 import { BrowserRouter, Route } from "react-router-dom";
-import { searchTerm, customQuery, getFacilities } from "./utils/worker.js";
-
+import { runDHIS2Query, searchTerm, customQuery } from "./utils/worker.js";
 var counties = [];
 
 class App extends Component {

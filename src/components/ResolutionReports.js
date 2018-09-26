@@ -31,6 +31,16 @@ class ResolutionReports extends Component {
                         <th scope="col">DHIS2</th>
                       </tr>
                     </thead>
+                    <tbody>
+                      <tr>
+                        <td>{facility.name}</td>
+                        <td>NULL</td>
+                      </tr>
+                      <tr>
+                        <td>{facility.code}</td>
+                        <td>NULL</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -53,7 +63,7 @@ class ResolutionReports extends Component {
   componentDidMount() {
     var ctx = document.getElementById("myChart").getContext("2d");
     new Chart(ctx, {
-      type: "pie",
+      type: "bar",
       data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [

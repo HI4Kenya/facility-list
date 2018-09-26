@@ -32,14 +32,18 @@ class FilterOptions extends Component {
 
     this.state.query += "&ward=" + ward; */
 
-    /* console.log(this.state.query);
-    this.props.runQuery(this.state.query); */
+    console.log(this.state.query);
+    this.props.runQuery(this.state.query);
   }
   render() {
-    let dtent = "collapse bg-secondary " + this.props.cname;
+    let dtent = "collapse " + this.props.cname;
     return (
-      <div id="filters_options" className={dtent}>
-        <div className="card card-body bg-secondary " style={{}}>
+      <div
+        id="filters_options"
+        style={{ background: "#c2c2c2" }}
+        className={dtent}
+      >
+        <div className="card card-body" style={{ background: "#c2c2c2" }}>
           <div className="row">
             <div className="col">
               <div className="filter_option">

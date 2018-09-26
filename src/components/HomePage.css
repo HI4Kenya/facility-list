@@ -5,7 +5,7 @@
 }
 
 .homepage {
-  background: url("./bg7.jpg") center / cover no-repeat;
+  background: url("./bg8.jpg") center / cover no-repeat;
   background-size: cover;
   height: 100%;
 }
@@ -26,7 +26,7 @@
   text-align: center;
   font-size: 5em;
   font-family: "Canterbury";
-  color: #3c3c3c;
+  color: #c2c2c2;
   padding-top: 30px;
 }
 .home_searchbar {
@@ -39,6 +39,6 @@
   z-index: auto;
   height: 100%;
   width: 100%;
-  opacity: 0.9;
-  background-image: linear-gradient(to bottom, #dddddd 30%, #0d79b8 100%);
+  opacity: 1;
+  background-image: linear-gradient(to top right, #008080 10%, #0071b3e8 70%);
 }

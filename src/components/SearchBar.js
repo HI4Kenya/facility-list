@@ -78,10 +78,10 @@ class SearchBar extends Component {
           className="input-group input-group-lg"
           style={{
             height: "50px",
-            lineHeight: "100px",
-            boxShadow: "1px 2px 3px  #ccc",
+            boxShadow: "1px 2px 3px  #3c3c3c",
             border: "none",
-            backgroundColor: "white"
+            backgroundColor: "white",
+            borderRadius: "30px"
           }}
         >
           <div className="input-group-prepend">
@@ -96,7 +96,7 @@ class SearchBar extends Component {
                 backgroundColor: "#fff",
                 height: "50px",
                 cursor: "pointer",
-                borderRadius: "10px",
+                borderRadius: "30px",
                 border: "0"
               }}
             >
@@ -111,17 +111,18 @@ class SearchBar extends Component {
           <form
             autoComplete="off"
             onSubmit={this.searchHandler.bind(this)}
-            style={{ width: "70%" }}
+            style={{ width: "50%", borderRadius: "30px" }}
           >
             <input
               type="text"
               className="form-control"
               style={{
                 height: "50px",
+                fontSize: "1.5em",
                 lineHeight: "100px",
                 boxShadow: "0px 0px 0px  #ccc",
                 border: "none",
-                borderRadius: "0"
+                borderRadius: "30px"
               }}
               onChange={this.valueChanged.bind(this)}
               id="query"
@@ -130,7 +131,11 @@ class SearchBar extends Component {
               aria-describedby="button-addon4"
             />
           </form>
-          <div className="input-group-append" id="button-addon4">
+          <div
+            className="input-group-append"
+            id="button-addon4"
+            style={{ height: "100%", fontSize: "0.3em" }}
+          >
             <button
               className="btn btn-outline-primary"
               style={{ display: "none" }}
@@ -139,6 +144,8 @@ class SearchBar extends Component {
             >
               smart detect out
             </button>
+          </div>
+          <div className="input-group-append" id="button-addon4">
             <button
               href="#"
               className="input-group-text"
@@ -147,9 +154,9 @@ class SearchBar extends Component {
                 backgroundColor: "#ffffff",
                 height: "50px",
                 width: "10%",
-                lineHeight: "100px",
                 border: "none",
-                borderRadius: "0"
+                borderRadius: "0",
+                float: "right"
               }}
               data-toggle="modal"
               data-target=".bd-example-modal-lg"
