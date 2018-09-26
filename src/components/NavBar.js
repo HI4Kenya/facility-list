@@ -11,7 +11,6 @@ class NavBar extends Component {
     this.state = { term: "" };
   }
   search(queryterm) {
-    console.log("Inside Nav search fn");
     this.props.search(queryterm);
   }
   componentWillReceiveProps(nxt) {
@@ -21,7 +20,6 @@ class NavBar extends Component {
   }
 
   render() {
-    console.log("rendering navbar ", this.state.term);
     return (
       <div className="mynav bg-light">
         <nav className="navbar navbar-expand-lg ">

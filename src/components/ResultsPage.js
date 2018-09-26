@@ -49,7 +49,7 @@ class ResultsPage extends Component {
               role="tabpanel"
               aria-labelledby="profile-tab"
             >
-              <ResolutionReports />
+              <ResolutionReports results={currentres} />
             </div>
             <div
               className="tab-pane fade"

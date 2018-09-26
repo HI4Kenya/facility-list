@@ -5,6 +5,7 @@ import FilterOptions from "./FilterOptions";
 import "./HomePage.css";
 import Title from "./Title";
 import { Redirect } from "react-router-dom";
+import Map from "./Map";
 
 class HomePage extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class HomePage extends Component {
     return (
       <div className="homepage">
         {this.renderRedirect()}
+        <Map />
         <div className="faze" />
         <div className="holder">
           <img src={logo} className="logo" alt="afya360logo" />

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import HomePage from "./components/HomePage";
 import ResultsPage from "./components/ResultsPage";
 import { BrowserRouter, Route } from "react-router-dom";
-import { searchTerm, query } from "./utils/worker.js";
+import { searchTerm, query, getFacilities } from "./utils/worker.js";
 
 var counties = [];
 
@@ -18,7 +18,6 @@ class App extends Component {
   }
 
   searchTerm(term) {
-    console.log("Inside the App.js searching ", term, "....");
     searchTerm(term).then(res => {
       this.setState({
         results: res,
@@ -34,10 +33,12 @@ class App extends Component {
     ).then(function f(data) {
       counties = data;
     });
+    getFacilities().then(function f(facilities) {
+      //console.log(facilities);
+    });
   }
 
   render() {
-    console.log("app render with,", counties);
     return (
       <BrowserRouter>
         <div>

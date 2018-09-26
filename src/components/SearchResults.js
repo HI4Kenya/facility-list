@@ -6,7 +6,8 @@ class SearchResults extends Component {
     super(props);
     this.state = {
       results: [],
-      count: 0
+      count: 0,
+      progress: 0
     };
   }
 
@@ -23,9 +24,12 @@ class SearchResults extends Component {
     console.log(this.state.count);
     console.log(this.state.progress);
 
-    var progress = "searching...";
+    var progress = "";
     if (this.state.progress === 1) {
       progress = "found " + this.state.count + " results";
+      this.state.progress = 0;
+    } else {
+      progress = "searching...";
     }
 
     if (this.state.results !== undefined) {

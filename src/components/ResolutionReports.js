@@ -4,14 +4,24 @@ import Chart from "chart.js";
 class ResolutionReports extends Component {
   constructor(props) {
     super(props);
-    this.state = { mfl_list: [], dhis2_list: [] };
+    var mfl_list = this.props.mfl_list;
+    this.state = { mfl_list: mfl_list, dhis2_list: [] };
   }
   render() {
     return (
-      <h1>
-        <canvas id="myChart" width="400" height="400" />
-      </h1>
+      <div className="reports">
+        <div className="row">
+          <canvas className="col" id="myChart" />
+        </div>
+        <div className="row">
+          <canvas className="col" id="myChart" />
+        </div>
+      </div>
     );
+  }
+
+  componentWillReceiveProps(nxt) {
+    var res = nxt.results;
   }
   componentDidMount() {
     var ctx = document.getElementById("myChart").getContext("2d");

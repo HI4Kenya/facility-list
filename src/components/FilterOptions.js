@@ -46,7 +46,7 @@ class FilterOptions extends Component {
               </div>
             </div>
           </div>
-
+          <br />
           <div className="row">
             <div className="col">
               <div className="filter_option">
@@ -60,8 +60,8 @@ class FilterOptions extends Component {
                 <input
                   type="text"
                   className="form-control form-control-sm"
-                  placeholder="county"
-                  name="county"
+                  placeholder="No of beds"
+                  name="no_beds"
                 />
               </div>
             </div>
@@ -70,20 +70,80 @@ class FilterOptions extends Component {
                 <input
                   type="text"
                   className="form-control form-control-sm"
-                  placeholder="county"
-                  name="county"
+                  placeholder="No. of Cots"
+                  name="no_cots"
                 />
               </div>
             </div>
           </div>
+          <br />
           <div className="row">
-            <div className="col">KEMPH LEVEL</div>
-            <div className="col">Facillity Owner</div>
-            <div className="col">Facility Owner Category</div>
-            <div className="col">Facility Type</div>
-            <div className="col">Operational Status</div>
-            <div className="col">Has Beds</div>
-            <div className="col">Has Cots</div>
+            <div className="col">
+              <select className="form-control form-control-sm" name="service">
+                <option>KEMPH Level</option>
+              </select>
+            </div>
+            <div className="col">
+              <div className="filter_option">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Facility Owner"
+                  name="no_cots"
+                />
+              </div>
+            </div>
+            <div className="col">
+              <div className="filter_option">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Owner category"
+                  name="no_cots"
+                />
+              </div>
+            </div>
+
+            <div className="col">
+              <div className="filter_option">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Facility Type"
+                  name="no_cots"
+                />
+              </div>
+            </div>
+            <div className="col">
+              <div className="filter_option">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Operational Status"
+                  name="no_cots"
+                />
+              </div>
+            </div>
+            <div className="col">
+              <div className="filter_option">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Has Beds"
+                  name="no_cots"
+                />
+              </div>
+            </div>
+            <div className="col">
+              <div className="filter_option">
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="Has Cots"
+                  name="no_cots"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

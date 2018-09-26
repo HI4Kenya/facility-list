@@ -1,5 +1,4 @@
 import $ from "jquery";
-
 var token_url = "http://api.kmhfltest.health.go.ke/o/token/";
 var client_id = "a3UXT427j160XpW1CcmMWqq7FLdkgTfH2NZlDHzV";
 var client_secret =
@@ -34,7 +33,7 @@ async function getToken() {
 
 export async function query(url) {
   var res = await getToken().then(async function my(token) {
-    console.log("gotten token in query", token.access_token);
+    //console.log("gotten token in query", token.access_token);
 
     var settings = {
       async: true,
@@ -53,6 +52,47 @@ export async function query(url) {
     return res;
   });
   return res;
+}
+
+export async function getFacilities() {
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url: "http://197.136.81.99:8082/test/api/organisationUnits",
+    method: "GET",
+    headers: {
+      Authorization: `Basic ${btoa(
+        "peterkahenyanjoki@gmail.com:Cephaspk@0100100110"
+      )}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  };
+
+  return $.ajax(settings).done(function(response) {
+    //console.log(response);
+    return response;
+  });
+}
+export async function getUserPermissions(params) {}
+export async function assignDataSets(datasets, facilities) {
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url:
+      "http://197.136.81.99:8080/training/api/dataSets/vP9T265AHZB/organisationUnits/EdEUWUBHquV",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization:
+        "Basic cGV0ZXJrYWhlbnlhbmpva2lAZ21haWwuY29tOkNlcGhhc3BrQDAxMDAxMDAxMTA=",
+      "Cache-Control": "no-cache",
+      "Postman-Token": "ef7cb7d4-2c53-4c04-9533-5776a64a30b0"
+    }
+  };
+
+  $.ajax(settings).done(function(response) {
+    // console.log(response);
+  });
 }
 
 export async function searchTerm(term) {
@@ -75,12 +115,12 @@ export async function searchTerm(term) {
         "Cache-Control": "no-cache"
       }
     };
-    console.log("starting search...");
+    //console.log("starting search...");
     var res = await $.ajax(settings).done(function(response) {
-      console.log(response.results);
+      //console.log(response.results);
       return response.results;
     });
-    console.log("done search...");
+    //console.log("done search...");
     return res;
   });
   return res;
