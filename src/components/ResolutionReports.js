@@ -40,6 +40,10 @@ class ResolutionReports extends Component {
                         <td>{facility.code}</td>
                         <td>NULL</td>
                       </tr>
+                      <tr>
+                        <td>long lat</td>
+                        <td>NULL</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>

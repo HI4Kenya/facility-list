@@ -29,7 +29,9 @@ class HomePage extends Component {
     }
   }
   runQuery(query) {
+    console.log(query);
     this.props.runQuery(query);
+    this.setState({ redirect: true });
   }
   render() {
     return (

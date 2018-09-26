@@ -17,6 +17,8 @@ class SearchBar extends Component {
   searchCounty(e) {
     e.preventDefault();
     var query = this.state.query;
+    console.log(this.state.query);
+
     this.props.query(query);
   }
 
@@ -29,8 +31,15 @@ class SearchBar extends Component {
   valueChanged(e) {
     var valuesofar = e.target.value;
     if (valuesofar.search(/[0-9]/i) === 0) {
-      document.getElementById("smartbtn").style = "display:block";
+      document.getElementById("smartbtn").style = "display:block;height:50px;";
       document.getElementById("smartbtn").innerHTML = valuesofar;
+      document.getElementById("smartbtn").className = "btn btn-outline-primary";
+      this.setState({
+        redirect: this.state.redirect,
+        query: "code=" + valuesofar,
+        counties: this.state.counties,
+        term: this.state.term
+      });
     } else {
       document.getElementById("smartbtn").style = "display:none";
     }
@@ -42,24 +51,22 @@ class SearchBar extends Component {
     );
     var index = countynames.indexOf(valuesofar);
     if (index > -1) {
-      document.getElementById("smartbtn").style = "display:block";
+      document.getElementById("smartbtn").style = "display:block;height:50px;";
       document.getElementById("smartbtn").innerHTML =
         "All in " + countynames[index];
+      document.getElementById("smartbtn").className = "btn btn-outline-primary";
       this.setState({
         redirect: this.state.redirect,
         query: "county=" + counties[index].id,
         counties: this.state.counties,
         term: this.state.term
       });
-      document.getElementById("smartbtn").onclick = this.searchCounty.bind(
-        this
-      );
     }
+    document.getElementById("smartbtn").onclick = this.searchCounty.bind(this);
   }
 
   componentWillReceiveProps(nxt) {
     var valuesofar = nxt.term;
-    console.log(nxt.counties);
     this.setState({
       redirect: this.state.redirect,
       term: valuesofar,
@@ -68,105 +75,91 @@ class SearchBar extends Component {
   }
   render() {
     return (
-      <div
-        className={this.props.cname}
-        style={{
-          borderRadius: "30px"
-        }}
-      >
-        <div
-          className="input-group input-group-lg"
-          style={{
-            height: "50px",
-            boxShadow: "1px 2px 3px  #3c3c3c",
-            border: "none",
-            backgroundColor: "white",
-            borderRadius: "30px"
-          }}
+      <div className={this.props.cname}>
+        <form
+          autoComplete="off"
+          style={{}}
+          onSubmit={this.searchHandler.bind(this)}
         >
-          <div className="input-group-prepend">
-            <button
-              className="input-group-text btn btn-primary filtersbtn "
-              id="inputGroup-sizing-lg"
-              data-toggle="collapse"
-              data-target="#filters_options"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-              style={{
-                backgroundColor: "#fff",
-                height: "50px",
-                cursor: "pointer",
-                borderRadius: "30px",
-                border: "0"
-              }}
-            >
-              <i
-                className="material-icons"
-                style={{ color: "rgb(1, 126, 199)" }}
-              >
-                filter_list
-              </i>
-            </button>
-          </div>
-          <form
-            autoComplete="off"
-            onSubmit={this.searchHandler.bind(this)}
-            style={{ width: "50%", borderRadius: "30px" }}
+          <div
+            class="input-group mb-3 input-group-lg"
+            style={{
+              height: "50px",
+              boxShadow: "1px 2px 3px  #ccc",
+              border: "none",
+              backgroundColor: "white",
+              borderRadius: "30px"
+            }}
           >
+            <div class="input-group-prepend">
+              <span
+                className="input-group-text btn btn-primary filtersbtn "
+                id="inputGroup-sizing-lg"
+                data-toggle="collapse"
+                data-target="#filters_options"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+                style={{
+                  backgroundColor: "#fff",
+                  height: "50px",
+                  cursor: "pointer",
+                  borderRadius: "30px",
+                  border: "0"
+                }}
+              >
+                <i
+                  className="material-icons"
+                  style={{ color: "rgb(1, 126, 199)" }}
+                >
+                  filter_list
+                </i>
+              </span>
+            </div>
             <input
               type="text"
               className="form-control"
               style={{
                 height: "50px",
-                fontSize: "1.5em",
                 lineHeight: "100px",
                 boxShadow: "0px 0px 0px  #ccc",
                 border: "none",
-                borderRadius: "30px"
+                borderRadius: "0"
               }}
               onChange={this.valueChanged.bind(this)}
+              onSubmit={this.searchHandler.bind(this)}
               id="query"
               placeholder="Search Facility Name, MFL code or Location..."
               aria-label="Search Facility Name, MFL code or Location..."
               aria-describedby="button-addon4"
             />
-          </form>
-          <div
-            className="input-group-append"
-            id="button-addon4"
-            style={{ height: "100%", fontSize: "0.3em" }}
-          >
-            <button
-              className="btn btn-outline-primary"
-              style={{ display: "none" }}
-              type="button"
-              id="smartbtn"
-            >
-              smart detect out
-            </button>
+            <div class="input-group-prepend" id="button-addon4">
+              <button
+                className="btn btn-outline-primary input-group-text"
+                style={{ display: "none", height: "50px" }}
+                id="smartbtn"
+              >
+                smart detect out
+              </button>
+              <span
+                className="input-group-text"
+                style={{
+                  backgroundColor: "#ffffff",
+                  height: "50px",
+                  width: "10%",
+                  lineHeight: "100px",
+                  border: "none",
+                  borderRadius: "0"
+                }}
+                data-toggle="modal"
+                data-target=".bd-example-modal-lg"
+              >
+                <i className="material-icons" style={{ color: "#0584ec" }}>
+                  location_on
+                </i>
+              </span>
+            </div>
           </div>
-          <div className="input-group-append" id="button-addon4">
-            <button
-              href="#"
-              className="input-group-text"
-              id="inputGroup-sizing-lg"
-              style={{
-                backgroundColor: "#ffffff",
-                height: "50px",
-                width: "10%",
-                border: "none",
-                borderRadius: "0",
-                float: "right"
-              }}
-              data-toggle="modal"
-              data-target=".bd-example-modal-lg"
-            >
-              <i className="material-icons" style={{ color: "#0584ec" }}>
-                location_on
-              </i>
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     );
   }
