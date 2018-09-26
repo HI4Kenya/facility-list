@@ -12,6 +12,7 @@ class HomePage extends Component {
     super(props);
     this.search = this.search.bind(this);
     this.renderRedirect = this.renderRedirect.bind(this);
+    this.runQuery = this.runQuery.bind(this);
     this.state = {
       query: "",
       redirect: false
@@ -27,7 +28,9 @@ class HomePage extends Component {
       return <Redirect to="/results" />;
     }
   }
-
+  runQuery(query) {
+    this.props.runQuery(query);
+  }
   render() {
     return (
       <div className="homepage">
@@ -41,8 +44,12 @@ class HomePage extends Component {
             cname={"home_searchbar"}
             search={this.search}
             counties={this.props.counties}
+            query={this.runQuery}
           />
-          <FilterOptions cname={"home_filteroptions"} />
+          <FilterOptions
+            runQuery={this.runQuery}
+            cname={"home_filteroptions"}
+          />
         </div>
       </div>
     );

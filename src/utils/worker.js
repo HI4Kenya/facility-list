@@ -31,10 +31,9 @@ async function getToken() {
   return y;
 }
 
-export async function query(url) {
+export async function customQuery(url) {
+  console.log(url);
   var res = await getToken().then(async function my(token) {
-    //console.log("gotten token in query", token.access_token);
-
     var settings = {
       async: true,
       crossDomain: true,
@@ -125,3 +124,144 @@ export async function searchTerm(term) {
   });
   return res;
 }
+
+export async function getCounties() {
+  var res = await getToken().then(async function my(token) {
+    //console.log("gotten token in query", token.access_token);
+
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/common/counties/?page_size=47&format=json",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_counties", JSON.stringify(res.results));
+}
+
+export async function getSubCounties() {
+  var res = await getToken().then(async function my(token) {
+    //console.log("gotten token in query", token.access_token);
+
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/common/sub_counties/?page_size=298&format=json",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_subcounties", JSON.stringify(res.results));
+}
+export async function getWards() {
+  var res = await getToken().then(async function my(token) {
+    //console.log("gotten token in query", token.access_token);
+
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/common/wards/?page_size=1450&format=json",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_wards", JSON.stringify(res.results));
+}
+export async function getServices() {
+  var res = await getToken().then(async function my(token) {
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/facilities/services/?page_size=92&format=json",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_services", JSON.stringify(res.results));
+}
+
+export async function getOwners() {
+  var res = await getToken().then(async function my(token) {
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/facilities/owners/?page_size=23&format=json",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_owners", JSON.stringify(res.results));
+}
+export async function getOwnerTypes() {
+  var res = await getToken().then(async function my(token) {
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/facilities/owner_types/?page_size=6&format=json",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_ownertypes", JSON.stringify(res.results));
+}
+getOwnerTypes();
+getOwners();
+getWards();
+getSubCounties();
+getCounties();
+getServices();

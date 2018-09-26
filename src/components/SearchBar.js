@@ -3,15 +3,21 @@ import React, { Component } from "react";
 class SearchBar extends Component {
   constructor(props) {
     super(props);
+    var counties = JSON.parse(localStorage.getItem("mfl_counties")).map(
+      county => {
+        return county.name;
+      }
+    );
 
-    this.state = { redirect: false, term: "", counties: [] };
+    this.state = { redirect: false, term: "", counties: counties, query: "" };
     this.searchHandler = this.searchHandler.bind(this);
     this.valueChanged = this.valueChanged.bind(this);
   }
 
   searchCounty(e) {
     e.preventDefault();
-    var queryterm = document.getElementById("query").value;
+    var query = this.state.query;
+    this.props.query(query);
   }
 
   searchHandler(e) {
@@ -21,7 +27,6 @@ class SearchBar extends Component {
   }
 
   valueChanged(e) {
-    var counties = ["Nakuru", "Kisumu", "Mombasa", "Nairobi"];
     var valuesofar = e.target.value;
     if (valuesofar.search(/[0-9]/i) === 0) {
       document.getElementById("smartbtn").style = "display:block";
@@ -29,17 +34,27 @@ class SearchBar extends Component {
     } else {
       document.getElementById("smartbtn").style = "display:none";
     }
-
-    if (counties.indexOf(valuesofar) > -1) {
+    var counties = JSON.parse(localStorage.getItem("mfl_counties"));
+    var countynames = JSON.parse(localStorage.getItem("mfl_counties")).map(
+      county => {
+        return county.name;
+      }
+    );
+    var index = countynames.indexOf(valuesofar);
+    if (index > -1) {
       document.getElementById("smartbtn").style = "display:block";
-      document.getElementById("smartbtn").innerHTML = "All in " + valuesofar;
+      document.getElementById("smartbtn").innerHTML =
+        "All in " + countynames[index];
+      this.setState({
+        redirect: this.state.redirect,
+        query: "county=" + counties[index].id,
+        counties: this.state.counties,
+        term: this.state.term
+      });
+      document.getElementById("smartbtn").onclick = this.searchCounty.bind(
+        this
+      );
     }
-
-    this.setState({
-      redirect: this.state.redirect,
-      term: valuesofar,
-      counties: this.state.counties
-    });
   }
 
   componentWillReceiveProps(nxt) {
@@ -121,7 +136,6 @@ class SearchBar extends Component {
               style={{ display: "none" }}
               type="button"
               id="smartbtn"
-              onClick={this.searchHandler.bind(this)}
             >
               smart detect out
             </button>

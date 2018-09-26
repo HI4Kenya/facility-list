@@ -56,7 +56,7 @@ async function getCounty() {
 async function getSubCounty() {
   console.log(dhis2);
   var x = await getCounty();
-  console.log(dhis2);
+  //console.log(dhis2);
   x.map(async function some(x) {
     var settings = {
       async: true,
@@ -87,7 +87,7 @@ async function getWard() {
 
   for (let index = 0; index < dhis2.counties.length; index++) {
     var element = dhis2.counties[index];
-    console.log(element);
+    //console.log(element);
   }
   dhis2.counties.map(function loopsub(county) {
     var current_county = county;

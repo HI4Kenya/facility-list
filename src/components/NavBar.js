@@ -8,6 +8,7 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
     this.search = this.search.bind(this);
+    this.runQuery = this.runQuery.bind(this);
     this.state = { term: "" };
   }
   search(queryterm) {
@@ -17,6 +18,10 @@ class NavBar extends Component {
     this.setState({
       term: nxt.term
     });
+  }
+  //inside NavBar
+  runQuery(query) {
+    this.props.runQuery(query);
   }
 
   render() {
@@ -31,10 +36,11 @@ class NavBar extends Component {
               cname={"nav_searchbar"}
               term={this.props.term}
               search={this.search}
+              query={this.runQuery}
             />
           </div>
         </nav>
-        <FilterOptions cname={"nav_filteroptions"} />
+        <FilterOptions runQuery={this.runQuery} cname={"nav_filteroptions"} />
         <ul
           className="nav nav-tabs bg-light"
           id="myTab"

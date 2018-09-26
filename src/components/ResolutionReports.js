@@ -4,15 +4,40 @@ import Chart from "chart.js";
 class ResolutionReports extends Component {
   constructor(props) {
     super(props);
-    var mfl_list = this.props.mfl_list;
-    this.state = { mfl_list: mfl_list, dhis2_list: [] };
+    this.state = { mfl_list: [] };
   }
   render() {
     return (
       <div className="reports">
-        <div className="row">
-          <canvas className="col" id="myChart" />
-        </div>
+        {this.state.mfl_list.map(facility => {
+          return (
+            <div>
+              <button
+                class="btn btn-primary"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                {facility.name}
+              </button>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <table className="table">
+                    <thead className="thead-dark">
+                      <tr>
+                        <th scope="col">KMHFL</th>
+                        <th scope="col">DHIS2</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
         <div className="row">
           <canvas className="col" id="myChart" />
         </div>
@@ -21,7 +46,9 @@ class ResolutionReports extends Component {
   }
 
   componentWillReceiveProps(nxt) {
-    var res = nxt.results;
+    var res = nxt.results.results;
+    console.log(res);
+    this.setState({ mfl_list: res });
   }
   componentDidMount() {
     var ctx = document.getElementById("myChart").getContext("2d");

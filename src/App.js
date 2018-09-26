@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import HomePage from "./components/HomePage";
 import ResultsPage from "./components/ResultsPage";
 import { BrowserRouter, Route } from "react-router-dom";
-import { searchTerm, query, getFacilities } from "./utils/worker.js";
+import { searchTerm, customQuery, getFacilities } from "./utils/worker.js";
 
 var counties = [];
 
@@ -10,6 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.searchTerm = this.searchTerm.bind(this);
+    this.runQuery = this.runQuery.bind(this);
     this.state = {
       results: [],
       progress: 0,
@@ -27,14 +28,17 @@ class App extends Component {
     });
   }
 
-  componentWillMount() {
-    query(
-      "http://api.kmhfltest.health.go.ke/api/common/counties/?format=json&page_size=47"
-    ).then(function f(data) {
-      counties = data;
-    });
-    getFacilities().then(function f(facilities) {
-      //console.log(facilities);
+  runQuery(query) {
+    customQuery(
+      "http://api.kmhfltest.health.go.ke/api/facilities/facilities/?" +
+        query +
+        "&format=json"
+    ).then(res => {
+      this.setState({
+        results: res,
+        progress: 1,
+        term: "query"
+      });
     });
   }
 
@@ -47,7 +51,7 @@ class App extends Component {
             path="/"
             render={() => (
               <div className="min">
-                <HomePage search={this.searchTerm} />
+                <HomePage runQuery={this.runQuery} search={this.searchTerm} />
               </div>
             )}
           />
@@ -61,6 +65,7 @@ class App extends Component {
                   results={this.state.results}
                   term={this.state.term}
                   progress={this.state.progress}
+                  runQuery={this.runQuery}
                 />
               </div>
             )}

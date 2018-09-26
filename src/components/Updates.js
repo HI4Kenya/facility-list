@@ -7,7 +7,7 @@ class Updates extends Component {
   }
   render() {
     return (
-      <h1>
+      <div>
         <table className="table">
           <thead className="thead-dark">
             <tr>
@@ -69,7 +69,7 @@ class Updates extends Component {
             </tr>
           </tbody>
         </table>
-      </h1>
+      </div>
     );
   }
 }
