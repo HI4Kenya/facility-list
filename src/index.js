@@ -5,7 +5,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import $ from "jquery";
 var dhis2 = {};
 //fetch facilities and create a json hierarchy
-console.log("Inside Index.js setting up...");
+
 async function getCountry() {
   var settings = {
     async: true,
@@ -117,6 +117,6 @@ async function getWard() {
   });
 }
 
-getWard();
+//getWard();
 ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();

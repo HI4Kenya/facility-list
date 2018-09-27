@@ -280,9 +280,49 @@ export async function getOwnerTypes() {
   });
   localStorage.setItem("mfl_ownertypes", JSON.stringify(res.results));
 }
+export async function getGeoCodes() {
+  var res = await getToken().then(async function my(token) {
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/facilities/facilities/?fields=lat_long,name&format=json&page_size=11133",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_geocodes", JSON.stringify(res.results));
+} /* 
 getOwnerTypes();
 getOwners();
 getWards();
 getSubCounties();
 getCounties();
 getServices();
+ */
+
+//localStorage.setItem("mfl_geocodes", "");
+//getGeoCodes();
+
+/* if (localStorage.getItem("mfl_geocodes") == "") {
+  console.log("FETCHING GEOS");
+  getGeoCodes();
+  console.log(localStorage.getItem("mfl_geocodes"));
+} */
+
+/* localStorage.setItem(
+  "mfl_geocodes",
+  JSON.stringify(
+    JSON.parse(localStorage.getItem("mfl_geocodes")).map(latlong => {
+      return [latlong["name"], latlong["lat_long"][0], latlong["lat_long"][1]];
+    })
+  )
+); */

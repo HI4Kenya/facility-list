@@ -19,7 +19,6 @@ class HomePage extends Component {
     };
   }
   search(term) {
-    console.log("inside homepage search for ", term);
     this.props.search(term);
     this.setState({ redirect: true });
   }
@@ -29,7 +28,7 @@ class HomePage extends Component {
     }
   }
   runQuery(query) {
-    console.log(query);
+    console.log("inside the homepage", query);
     this.props.runQuery(query);
     this.setState({ redirect: true });
   }
@@ -37,7 +36,7 @@ class HomePage extends Component {
     return (
       <div className="homepage">
         {this.renderRedirect()}
-        <Map />
+        {/*   <Map /> */}
         <div className="faze" />
         <div className="holder">
           <img src={logo} className="logo" alt="afya360logo" />

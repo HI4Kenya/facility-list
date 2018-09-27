@@ -20,27 +20,56 @@ class FilterOptions extends Component {
     };
     this.runQuery = this.runQuery.bind(this);
   }
-
   runQuery() {
+    var query = "";
     var county = document.getElementById("county").value;
     var subcounty = document.getElementById("sub_county").value;
-    var ward = document.getElementById("county").value;
+    var ward = document.getElementById("ward").value;
+    var service = document.getElementById("service").value;
+    var hasbeds = document.getElementById("has_beds").checked;
+    var hascots = document.getElementById("has_cots").checked;
+    var no_beds = document.getElementById("no_beds").value;
+    var no_cots = document.getElementById("no_cots").value;
+    var keph = document.getElementById("keph_level").value;
+    var owner = document.getElementById("owner").value;
+    var owner_type = document.getElementById("owner_type").value;
+    var operational = document.getElementById("operational").checked;
 
-    this.state.query += "county=" + county;
+    query = county !== "-1" ? "county=" + county : "";
+    console.log(query);
+    query += subcounty === "-1" ? "" : "&sub_county=" + subcounty;
+    console.log(query);
+    query += ward !== "-1" ? "&ward=" + ward : "";
+    console.log(query);
+    query += service !== "-1" ? "&service=" + service : "";
+    console.log(query);
+    query += keph !== "-1" ? "&keph_level=" + keph : "";
+    console.log(query);
+    query += owner !== "-1" ? "&owner=" + owner : "";
+    console.log(query);
 
-    /* this.state.query += "&sub_county=" + subcounty;
+    query += owner_type !== "-1" ? "&owner_type=" + owner_type : "";
+    console.log(query);
+    query += operational ? "&operational=true" : "";
+    console.log(query);
+    query += hasbeds ? "&has_beds=true" : "";
+    console.log(query);
+    query += hascots ? "&has_cots=true" : "";
+    console.log(query);
+    query += no_beds ? "&no_beds=" + no_beds : "";
+    console.log(query);
+    query += no_cots ? "&no_cots=" + no_cots : "";
 
-    this.state.query += "&ward=" + ward; */
+    console.log(query);
 
-    console.log(this.state.query);
-    this.props.runQuery(this.state.query);
+    this.props.runQuery(query);
   }
   render() {
     let dtent = "collapse " + this.props.cname;
     return (
       <div
         id="filters_options"
-        style={{ background: "#c2c2c2" }}
+        style={{ background: "#ccc" }}
         className={dtent}
       >
         <div className="card card-body" style={{ background: "#c2c2c2" }}>
@@ -48,7 +77,7 @@ class FilterOptions extends Component {
             <div className="col">
               <div className="filter_option">
                 <select id="county" className="form-control form-control-sm">
-                  <option>select county</option>
+                  <option value={-1}>select county</option>
                   {this.state.counties.map(county => (
                     <option
                       value={county.id}
@@ -66,7 +95,7 @@ class FilterOptions extends Component {
                   id="sub_county"
                   className="form-control form-control-sm"
                 >
-                  <option>select sub county</option>
+                  <option value={-1}>select sub county</option>
                   {this.state.sub_counties.map(sub_county => (
                     <option value={sub_county.id}>{sub_county.name}</option>
                   ))}
@@ -76,7 +105,7 @@ class FilterOptions extends Component {
             <div className="col">
               <div className="filter_option">
                 <select id="ward" className="form-control form-control-sm">
-                  <option>select ward</option>
+                  <option value={-1}>select ward</option>
                   {this.state.wards.map(ward => (
                     <option value={ward.id}>{ward.name}</option>
                   ))}
@@ -86,7 +115,7 @@ class FilterOptions extends Component {
             <div className="col">
               <div className="filter_option">
                 <select id="service" className="form-control form-control-sm">
-                  <option>choose service</option>
+                  <option value={-1}>choose service</option>
                   {this.state.services.map(service => (
                     <option value={service.id}>{service.name}</option>
                   ))}
@@ -98,11 +127,12 @@ class FilterOptions extends Component {
           <div className="row">
             <div className="col">
               <div className="filter_option">
-                <div class="input-group-text">
+                <div className="input-group-text">
                   <input
                     type="checkbox"
                     aria-label="Checkbox for following text input"
-                  />{" "}
+                    id="has_beds"
+                  />
                   Has Beds
                 </div>
               </div>
@@ -113,17 +143,18 @@ class FilterOptions extends Component {
                   type="text"
                   className="form-control form-control-sm"
                   placeholder="No of beds"
-                  name="no_beds"
+                  id="no_beds"
                 />
               </div>
             </div>
             <div className="col">
               <div className="filter_option">
-                <div class="input-group-text">
+                <div className="input-group-text">
                   <input
                     type="checkbox"
                     aria-label="Checkbox for following text input"
                     placeholder="has cots"
+                    id="has_cots"
                   />
                   Has Cots
                 </div>
@@ -135,7 +166,7 @@ class FilterOptions extends Component {
                   type="text"
                   className="form-control form-control-sm"
                   placeholder="No. of Cots"
-                  name="no_cots"
+                  id="no_cots"
                 />
               </div>
             </div>
@@ -143,8 +174,8 @@ class FilterOptions extends Component {
           <hr />
           <div className="row">
             <div className="col">
-              <select className="form-control form-control-sm" id="kemph_level">
-                <option>KEMPH Level</option>
+              <select className="form-control form-control-sm" id="keph_level">
+                <option value={-1}>KEMPH Level</option>
                 <option value="1">Level 1</option>
                 <option value="2">Level 2</option>
                 <option value="3">Level 3</option>
@@ -156,7 +187,7 @@ class FilterOptions extends Component {
             <div className="col">
               <div className="filter_option">
                 <select id="owner" className="form-control form-control-sm">
-                  <option>select owner</option>
+                  <option value={-1}>select owner</option>
                   {this.state.owners.map(owner => (
                     <option
                       value={owner.id}
@@ -175,7 +206,7 @@ class FilterOptions extends Component {
                   id="owner_type"
                   className="form-control form-control-sm"
                 >
-                  <option>select owner type</option>
+                  <option value={-1}>select owner type</option>
                   {this.state.owners_types.map(owner_type => (
                     <option
                       value={owner_type.id}
@@ -189,10 +220,11 @@ class FilterOptions extends Component {
             </div>
             <div className="col">
               <div className="filter_option">
-                <div class="input-group-text">
+                <div className="input-group-text">
                   <input
                     type="checkbox"
                     aria-label="Checkbox for following text input"
+                    id="operational"
                   />
                   Operational?
                 </div>
@@ -203,8 +235,9 @@ class FilterOptions extends Component {
         <button
           onClick={this.runQuery.bind(this)}
           className="btn btn-outline-primary"
+          style={{ marginLeft: "50%" }}
         >
-          search
+          runQuery
         </button>
       </div>
     );

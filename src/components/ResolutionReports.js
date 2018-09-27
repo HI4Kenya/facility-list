@@ -1,19 +1,27 @@
 import React, { Component } from "react";
 import Chart from "chart.js";
+import { runDHIS2Query } from "../utils/worker.js";
 
 class ResolutionReports extends Component {
   constructor(props) {
     super(props);
-    this.state = { mfl_list: [] };
+    this.state = { mfl_list: [], dhiseq: {} };
   }
   render() {
     return (
       <div className="reports">
         {this.state.mfl_list.map(facility => {
+          console.log("fetching equivalent from dhis2");
+          runDHIS2Query(
+            "/organisationUnits.json?filters=code:ed:" + facility.code
+          ).then(dhiseq => {
+            this.state.dhiseq = dhiseq;
+            console.log(dhiseq);
+          });
           return (
             <div>
               <button
-                class="btn btn-primary"
+                className="btn btn-primary"
                 type="button"
                 data-toggle="collapse"
                 data-target="#collapseExample"
@@ -22,27 +30,33 @@ class ResolutionReports extends Component {
               >
                 {facility.name}
               </button>
-              <div class="collapse" id="collapseExample">
-                <div class="card card-body">
+              <div className="collapse" id="collapseExample">
+                <div className="card card-body">
                   <table className="table">
                     <thead className="thead-dark">
                       <tr>
                         <th scope="col">KMHFL</th>
                         <th scope="col">DHIS2</th>
+                        <th scope="col">status</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>{facility.name}</td>
-                        <td>NULL</td>
+                        <td>{this.state.dhiseq.displayName}</td>
+                        <th scope="col">
+                          {this.state.dhiseq.name == facility.name ? "Y" : "N"}
+                        </th>
                       </tr>
                       <tr>
                         <td>{facility.code}</td>
-                        <td>NULL</td>
+                        <th scope="col">
+                          {this.state.dhiseq.CODE == facility.code ? "Y" : "N"}
+                        </th>
                       </tr>
                       <tr>
                         <td>long lat</td>
-                        <td>NULL</td>
+                        <td>{this.state.dhiseq.lat_long}</td>
                       </tr>
                     </tbody>
                   </table>
