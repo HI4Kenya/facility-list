@@ -33,7 +33,6 @@ class SearchBar extends Component {
       a.setAttribute("class", "autocomplete-items");
       document.getElementById("suggestions").appendChild(a);
       searchTerm(val).then(res => {
-        console.log(res);
         res.results.map(facility => {
           b = document.createElement("DIV");
           b.innerHTML =
@@ -42,12 +41,18 @@ class SearchBar extends Component {
           b.innerHTML += "<input type='hidden' value='" + facility.name + "'>";
           b.addEventListener("click", function(e) {
             inp.value = this.getElementsByTagName("input")[0].value;
+            document.getElementById("smartbtn").style =
+              "display:block;height:50px;";
+            document.getElementById("smartbtn").innerHTML = "search";
+            document.getElementById("smartbtn").className =
+              "btn btn-outline-success";
             closeAllLists();
           });
           a.appendChild(b);
         });
       });
     });
+    document.getElementById("smartbtn").onclick = this.searchHandler.bind(this);
     inp.addEventListener("keydown", function(e) {
       var x = document.getElementById(this.id + "autocomplete-list");
       if (x) x = x.getElementsByTagName("div");
@@ -77,8 +82,6 @@ class SearchBar extends Component {
       }
     }
     function closeAllLists(elmnt) {
-      /*close all autocomplete lists in the document,
-      except the one passed as an argument:*/
       var x = document.getElementsByClassName("autocomplete-items");
       for (var i = 0; i < x.length; i++) {
         if (elmnt != x[i] && elmnt != inp) {
@@ -86,7 +89,6 @@ class SearchBar extends Component {
         }
       }
     }
-    /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function(e) {
       closeAllLists(e.target);
     });

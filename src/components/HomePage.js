@@ -36,7 +36,7 @@ class HomePage extends Component {
     return (
       <div className="homepage">
         {this.renderRedirect()}
-        {/*   <Map /> */}
+        <Map />
         <div className="faze" />
         <div className="holder">
           <img src={logo} className="logo" alt="afya360logo" />

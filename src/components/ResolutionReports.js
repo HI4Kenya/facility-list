@@ -13,10 +13,12 @@ class ResolutionReports extends Component {
         {this.state.mfl_list.map(facility => {
           console.log("fetching equivalent from dhis2");
           runDHIS2Query(
-            "/organisationUnits.json?filters=code:ed:" + facility.code
+            "/organisationUnits.json?filter=code:eq:" + facility.code
           ).then(dhiseq => {
             this.state.dhiseq = dhiseq;
-            console.log(dhiseq);
+            dhiseq.organisationUnits.map(fas => {
+              console.log(fas.name);
+            });
           });
           return (
             <div>
