@@ -3,10 +3,17 @@ import React, { Component } from "react";
 class Title extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: "Afya360" };
+    this.state = { name: "KMHFL" };
   }
   render() {
-    return <div className={this.props.cname}>{this.state.name}</div>;
+    return (
+      <div
+        className={this.props.cname}
+        style={{ boxShadow: "1px 2px 3px #ccc" }}
+      >
+        {this.state.name}
+      </div>
+    );
   }
 }
 

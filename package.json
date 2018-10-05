@@ -1,10 +1,20 @@
 {
-  "name": "afya360",
-  "version": "0.1.0",
-  "private": true,
+  "name": "afya",
+  "version": "0.0.1",
+  "description": "This app is for accessing KMHFL in DHIS2",
+  "main": "index.js",
+  "homepage": "http://197.136.81.99:8082/test/api/apps/afya/",
+  "license": "GPLv3",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && npm run manifest",
+    "postbuild": "cp icon.png ./build/",
+    "manifest": "d2-manifest package.json build/manifest.webapp",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "axios": "^0.18.0",
-    "chart.js": "^2.7.2",
     "jquery": "^3.3.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -12,10 +22,19 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "manifest.webapp": {
+    "name": "afya",
+    "icons": {
+      "48": "icon.png"
+    },
+    "developer": {
+      "url": "https://github.com/PeterKahenya",
+      "name": "University of Nairobi Health IT"
+    },
+    "activities": {
+      "dhis": {
+        "href": "*"
+      }
+    }
   }
 }

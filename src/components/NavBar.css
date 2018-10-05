@@ -25,13 +25,13 @@
 
 .nav_searchbar {
   width: 800px;
+  margin-left: 35px;
 }
 
 .nav_title {
   text-align: center;
-  font-size: 3em;
-  font-family: "Canterbury";
+  font-size: 2em;
   color: #ffffff;
   font-weight: bolder;
-  text-shadow: 1px 2px 30px #8d8d8d;
+  background-color: #276696;
 }

@@ -28,48 +28,7 @@
 
 <body>
   <div id="root"></div>
-  <script>
-    function initMap() {
-      console.log("Initializing maps");
-      var map;
-      var bounds = new google.maps.LatLngBounds();
-      var mapOptions = {
-        mapTypeId: 'roadmap'
-      };
-      map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-      console.log("attempting to fetch local geo codes")
-      var geos = JSON.parse(localStorage.getItem("mfl_geocodes"))
-      console.log(geos)
-      var markers = [];
-      if (geos != "") {
-        markers = geos;
-      } else {
-        console.log("No goes found using default..");
-        markers = [
-          ['London Eye, London', -1.28333, 36.91667],
-          ['Palace of Westminster, London', -1.38333, 36.81667],
-          ['Duke of Nyanya HQ', -1.28333, 36.81667]
-        ];
-      }
-      var infoWindow = new google.maps.InfoWindow(), marker, i;
-      for (i = 0; i < markers.length; i++) {
-        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-        bounds.extend(position);
-        marker = new google.maps.Marker({
-          position: position,
-          map: map,
-          title: markers[i][0]
-        });
-        map.fitBounds(bounds);
-      }
-      var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-        this.setZoom(14);
-        google.maps.event.removeListener(boundsListener);
-      });
-
-    }
-  </script>
 </body>
 
 </html>

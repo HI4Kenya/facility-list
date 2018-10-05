@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { customMFL } from "../utils/worker.js";
 
 class FilterOptions extends Component {
   constructor(props) {
@@ -19,6 +20,26 @@ class FilterOptions extends Component {
       query: ""
     };
     this.runQuery = this.runQuery.bind(this);
+    this.countySelected = this.countySelected.bind(this);
+    this.subCountySelected = this.subCountySelected.bind(this);
+  }
+  countySelected() {
+    var county = document.getElementById("county").value;
+    customMFL("common/sub_counties/?format=json&county=" + county).then(
+      resp => {
+        this.setState({ sub_counties: resp });
+        console.log(this.state.sub_counties);
+      }
+    );
+  }
+  subCountySelected() {
+    var sub_counties = document.getElementById("sub_county").value;
+    customMFL("common/wards/?format=json&sub_county=" + sub_counties).then(
+      resp => {
+        this.setState({ wards: resp });
+        console.log(this.state.wards);
+      }
+    );
   }
   runQuery() {
     var query = "";
@@ -36,11 +57,8 @@ class FilterOptions extends Component {
     var operational = document.getElementById("operational").checked;
 
     query = county !== "-1" ? "county=" + county : "";
-    console.log(query);
     query += subcounty === "-1" ? "" : "&sub_county=" + subcounty;
-    console.log(query);
     query += ward !== "-1" ? "&ward=" + ward : "";
-    console.log(query);
     query += service !== "-1" ? "&service=" + service : "";
     console.log(query);
     query += keph !== "-1" ? "&keph_level=" + keph : "";
@@ -69,14 +87,18 @@ class FilterOptions extends Component {
     return (
       <div
         id="filters_options"
-        style={{ background: "#ccc" }}
+        style={{ backgroundColor: "#276696" }}
         className={dtent}
       >
-        <div className="card card-body" style={{ background: "#c2c2c2" }}>
+        <div className="card card-body" style={{ backgroundColor: "#276696" }}>
           <div className="row">
             <div className="col">
-              <div className="filter_option">
-                <select id="county" className="form-control form-control-sm">
+              <div className="filter_option ">
+                <select
+                  id="county"
+                  className="form-control form-control-sm custom-select"
+                  onChange={this.countySelected.bind(this)}
+                >
                   <option value={-1}>select county</option>
                   {this.state.counties.map(county => (
                     <option
@@ -93,7 +115,8 @@ class FilterOptions extends Component {
               <div className="filter_option">
                 <select
                   id="sub_county"
-                  className="form-control form-control-sm"
+                  className="form-control form-control-sm custom-select"
+                  onChange={this.subCountySelected.bind(this)}
                 >
                   <option value={-1}>select sub county</option>
                   {this.state.sub_counties.map(sub_county => (
@@ -104,7 +127,10 @@ class FilterOptions extends Component {
             </div>
             <div className="col">
               <div className="filter_option">
-                <select id="ward" className="form-control form-control-sm">
+                <select
+                  id="ward"
+                  className="form-control form-control-sm custom-select"
+                >
                   <option value={-1}>select ward</option>
                   {this.state.wards.map(ward => (
                     <option value={ward.id}>{ward.name}</option>
@@ -114,7 +140,10 @@ class FilterOptions extends Component {
             </div>
             <div className="col">
               <div className="filter_option">
-                <select id="service" className="form-control form-control-sm">
+                <select
+                  id="service"
+                  className="form-control form-control-sm custom-select "
+                >
                   <option value={-1}>choose service</option>
                   {this.state.services.map(service => (
                     <option value={service.id}>{service.name}</option>
@@ -234,7 +263,7 @@ class FilterOptions extends Component {
         </div>
         <button
           onClick={this.runQuery.bind(this)}
-          className="btn btn-outline-primary"
+          className="btn btn-secondary"
           style={{ marginLeft: "50%" }}
         >
           runQuery

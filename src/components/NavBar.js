@@ -26,7 +26,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div className="mynav bg-light">
+      <div className="mynav" style={{ backgroundColor: "#276696" }}>
         <nav className="navbar navbar-expand-lg ">
           <a className="navbar-brand" href="/">
             <Title cname={"nav_title"} />
@@ -42,10 +42,10 @@ class NavBar extends Component {
         </nav>
         <FilterOptions runQuery={this.runQuery} cname={"nav_filteroptions"} />
         <ul
-          className="nav nav-tabs bg-light"
+          className="nav nav-tabs"
           id="myTab"
           role="tablist"
-          style={{ paddingLeft: "177px" }}
+          style={{ paddingLeft: "177px", backgroundColor: "#276696" }}
         >
           <li className="nav-item">
             <a
@@ -57,7 +57,7 @@ class NavBar extends Component {
               aria-controls="home"
               aria-selected="true"
             >
-              Facilities
+              Results
             </a>
           </li>
           <li className="nav-item">

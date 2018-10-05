@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { searchTerm } from "../utils/worker.js";
+import filtericon from "./filter.png";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -13,6 +14,11 @@ class SearchBar extends Component {
     this.state = { redirect: false, term: "", counties: counties, query: "" };
     this.searchHandler = this.searchHandler.bind(this);
     this.valueChanged = this.valueChanged.bind(this);
+    this.changePlatform = this.changePlatform.bind(this);
+  }
+
+  changePlatform(e) {
+    console.log(e.target.value);
   }
 
   componentDidMount() {
@@ -42,10 +48,10 @@ class SearchBar extends Component {
           b.addEventListener("click", function(e) {
             inp.value = this.getElementsByTagName("input")[0].value;
             document.getElementById("smartbtn").style =
-              "display:block;height:50px;";
+              "display:block;height:50px;border-radius:30px";
             document.getElementById("smartbtn").innerHTML = "search";
             document.getElementById("smartbtn").className =
-              "btn btn-outline-success";
+              "btn btn-outline-primary";
             closeAllLists();
           });
           a.appendChild(b);
@@ -110,9 +116,13 @@ class SearchBar extends Component {
 
   valueChanged(e) {
     var valuesofar = e.target.value;
+    var mflcodes = JSON.parse(localStorage.getItem("mfl_codes")).map(code => {
+      return code.code;
+    });
 
-    if (valuesofar.search(/[0-9]/i) === 0) {
-      document.getElementById("smartbtn").style = "display:block;height:50px;";
+    if (mflcodes.indexOf(parseInt(valuesofar)) > -1) {
+      document.getElementById("smartbtn").style =
+        "display:block;height:50px;border-radius:30px";
       document.getElementById("smartbtn").innerHTML = valuesofar;
       document.getElementById("smartbtn").className = "btn btn-outline-primary";
       this.setState({
@@ -133,7 +143,8 @@ class SearchBar extends Component {
     var index = countynames.indexOf(valuesofar);
     var index2 = countynames.indexOf(valuesofar.toUpperCase());
     if (index > -1 || index2 > -1) {
-      document.getElementById("smartbtn").style = "display:block;height:50px;";
+      document.getElementById("smartbtn").style =
+        "display:block;height:50px;border-radius:30px";
       document.getElementById("smartbtn").innerHTML =
         "All in " + countynames[index > -1 ? index : index2];
       document.getElementById("smartbtn").className = "btn btn-outline-primary";
@@ -160,45 +171,66 @@ class SearchBar extends Component {
   render() {
     return (
       <div className={this.props.cname}>
+        <div style={{ paddingLeft: "35%" }}>
+          <label
+            class="container"
+            value="kmhfl"
+            onClick={this.changePlatform.bind(this)}
+          >
+            KMHFL
+            <input
+              type="radio"
+              checked="checked"
+              name="radio"
+              value="kmhfl"
+              onClick={this.changePlatform.bind(this)}
+            />
+            <span class="checkmark" />
+          </label>
+          <label class="container">
+            DHIS2
+            <input
+              type="radio"
+              name="radio"
+              value="dhis2"
+              onClick={this.changePlatform.bind(this)}
+            />
+            <span class="checkmark" />
+          </label>
+        </div>
         <form
           autoComplete="off"
-          style={{}}
+          style={{ border: "none" }}
           onSubmit={this.searchHandler.bind(this)}
         >
           <div
             className="input-group mb-3 input-group-lg"
             style={{
               height: "50px",
-              boxShadow: "1px 2px 3px  #ccc",
               border: "none",
               backgroundColor: "white",
               borderRadius: "30px"
             }}
             id="suggestions"
           >
-            <div className="input-group-prepend">
-              <span
-                className="input-group-text btn btn-primary filtersbtn "
+            <div className="input-group-prepend filtersbtn">
+              <img
+                className="input-group-text "
                 id="inputGroup-sizing-lg"
                 data-toggle="collapse"
                 data-target="#filters_options"
                 aria-expanded="false"
                 aria-controls="collapseExample"
+                src={filtericon}
                 style={{
-                  backgroundColor: "#fff",
+                  backgroundColor: "transparent",
                   height: "50px",
                   cursor: "pointer",
                   borderRadius: "30px",
-                  border: "0"
+                  border: "none",
+                  width: "50px"
                 }}
-              >
-                <i
-                  className="material-icons"
-                  style={{ color: "rgb(1, 126, 199)" }}
-                >
-                  filter_list
-                </i>
-              </span>
+              />
             </div>
             <input
               type="text"
@@ -208,7 +240,8 @@ class SearchBar extends Component {
                 lineHeight: "100px",
                 boxShadow: "0px 0px 0px  #ccc",
                 border: "none",
-                borderRadius: "0"
+                borderRadius: "30px",
+                fontSize: "1.5em"
               }}
               onChange={this.valueChanged.bind(this)}
               onSubmit={this.searchHandler.bind(this)}
@@ -220,28 +253,15 @@ class SearchBar extends Component {
             <div className="input-group-prepend" id="button-addon4">
               <button
                 className="btn btn-outline-primary input-group-text"
-                style={{ display: "none", height: "50px" }}
+                style={{
+                  display: "none",
+                  height: "50px",
+                  borderRadius: "30px"
+                }}
                 id="smartbtn"
               >
                 smart detect out
               </button>
-              <span
-                className="input-group-text"
-                style={{
-                  backgroundColor: "#ffffff",
-                  height: "50px",
-                  width: "10%",
-                  lineHeight: "100px",
-                  border: "none",
-                  borderRadius: "0"
-                }}
-                data-toggle="modal"
-                data-target=".bd-example-modal-lg"
-              >
-                <i className="material-icons" style={{ color: "#0584ec" }}>
-                  location_on
-                </i>
-              </span>
             </div>
           </div>
         </form>

@@ -4,7 +4,6 @@ import ResolutionReports from "./ResolutionReports";
 import Updates from "./Updates";
 import NavBar from "./NavBar";
 import "./ResultsPage.css";
-import Map from "./Map";
 
 class ResultsPage extends Component {
   constructor(props) {
@@ -39,6 +38,7 @@ class ResultsPage extends Component {
           term={this.props.term}
           runQuery={this.runQuery}
         />
+
         <div className="" style={{ paddingLeft: "177px" }}>
           <div className="tab-content" id="myTabContent">
             <div
@@ -47,7 +47,6 @@ class ResultsPage extends Component {
               role="tabpanel"
               aria-labelledby="home-tab"
             >
-              <Map />
               <SearchResults
                 results={currentres}
                 progress={this.props.progress}

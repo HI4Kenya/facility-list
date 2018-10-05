@@ -6,6 +6,15 @@ var client_secret =
 var facilities_endpoint =
   "http://api.kmhfltest.health.go.ke/api/facilities/facilities/";
 var dhis2url = "http://197.136.81.99:8082/test/api";
+var mfl_endpoint = "http://api.kmhfltest.health.go.ke/api/";
+var mfl_client_id = "a3UXT427j160XpW1CcmMWqq7FLdkgTfH2NZlDHzV";
+var mfl_client_secret =
+  "Lf3lZv9XYG2p3S7nsy2sy580mDuB9ajDY6M39FIfEEzhNLua1LBY1LB1EV0NdQFClsqSvUnvpkDi8V7XTiVEXIzLtzH3MCMcO3SQblzbqlhpy97d2TamfSDsNoa6HVrJ";
+var mfl_username = "test@mail.com";
+var mfl_password = "test@1234";
+var dhis2_endpoint = "https://test.hiskenya.org/kenya/api/";
+var dhis2username = "gray";
+var dhis2password = "Ourgroup1.";
 
 async function getToken() {
   var settings = {
@@ -52,46 +61,6 @@ export async function customQuery(url) {
     return res;
   });
   return res;
-}
-
-export async function runDHIS2Query(query) {
-  var settings = {
-    async: true,
-    crossDomain: true,
-    url: dhis2url + query,
-    method: "GET",
-    headers: {
-      Authorization: `Basic ${btoa(
-        "peterkahenyanjoki@gmail.com:Cephaspk@0100100110"
-      )}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  };
-
-  return $.ajax(settings).done(function(response) {
-    //console.log(response);
-    return response;
-  });
-}
-
-export async function getFacilities() {
-  var settings = {
-    async: true,
-    crossDomain: true,
-    url: "http://197.136.81.99:8082/test/api/organisationUnits",
-    method: "GET",
-    headers: {
-      Authorization: `Basic ${btoa(
-        "peterkahenyanjoki@gmail.com:Cephaspk@0100100110"
-      )}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  };
-
-  return $.ajax(settings).done(function(response) {
-    //console.log(response);
-    return response;
-  });
 }
 export async function getUserPermissions(params) {}
 export async function assignDataSets(datasets, facilities) {
@@ -144,6 +113,26 @@ export async function searchTerm(term) {
     return res;
   });
   return res;
+}
+
+export async function customMFL(query) {
+  var res = await getToken().then(async function my(token) {
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url: mfl_endpoint + query,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
+    console.log(mfl_endpoint + query);
+    return await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+  });
+  return res.results;
 }
 
 export async function getCounties() {
@@ -300,29 +289,75 @@ export async function getGeoCodes() {
     return res;
   });
   localStorage.setItem("mfl_geocodes", JSON.stringify(res.results));
-} /* 
-getOwnerTypes();
-getOwners();
-getWards();
-getSubCounties();
-getCounties();
-getServices();
- */
+}
+export async function getCodes() {
+  var res = await getToken().then(async function my(token) {
+    var settings = {
+      async: true,
+      crossDomain: true,
+      url:
+        "http://api.kmhfltest.health.go.ke/api/facilities/facilities/?fields=code&format=json&page_size=11133",
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.access_token,
+        "Cache-Control": "no-cache"
+      }
+    };
 
-//localStorage.setItem("mfl_geocodes", "");
-//getGeoCodes();
+    var res = await $.ajax(settings).done(function(response) {
+      return response.results;
+    });
+    return res;
+  });
+  localStorage.setItem("mfl_codes", JSON.stringify(res.results));
+}
+if (!localStorage.getItem("mfl_counties")) {
+  getOwnerTypes();
+  getOwners();
+  getWards();
+  getSubCounties();
+  getCounties();
+  getServices();
+  getCodes();
+}
 
-/* if (localStorage.getItem("mfl_geocodes") == "") {
-  console.log("FETCHING GEOS");
-  getGeoCodes();
-  console.log(localStorage.getItem("mfl_geocodes"));
-} */
+export async function runDHIS2Query(query) {
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url: dhis2_endpoint + query,
+    method: "GET",
+    headers: {
+      Authorization: `Basic ${btoa(dhis2username + ":" + dhis2password)}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  };
 
-/* localStorage.setItem(
-  "mfl_geocodes",
-  JSON.stringify(
-    JSON.parse(localStorage.getItem("mfl_geocodes")).map(latlong => {
-      return [latlong["name"], latlong["lat_long"][0], latlong["lat_long"][1]];
-    })
-  )
-); */
+  return $.ajax(settings).done(function(response) {
+    return response;
+  });
+}
+
+export async function updatedhis2(orgid, payload) {
+  var payl = JSON.stringify(payload);
+  console.log(payl);
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url: dhis2_endpoint + "organisationUnits/" + orgid,
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Basic ${btoa(dhis2username + ":" + dhis2password)}`
+    },
+    processData: false,
+    data: payl
+    //'{\n "coordinates":"[12,22]",\n "name":"South Eastern Kenya University",\n "shortName":"SEKU",\n "openingDate":"1899-12-26T23:27:16.000"\n}'
+  };
+  console.log(settings.data);
+  return await $.ajax(settings).done(function(response) {
+    //console.log(response);
+
+    return response;
+  });
+}
