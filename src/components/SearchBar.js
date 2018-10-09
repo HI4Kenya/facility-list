@@ -11,14 +11,20 @@ class SearchBar extends Component {
       }
     );
 
-    this.state = { redirect: false, term: "", counties: counties, query: "" };
+    this.state = {
+      redirect: false,
+      term: "",
+      counties: counties,
+      query: "",
+      system: ""
+    };
     this.searchHandler = this.searchHandler.bind(this);
     this.valueChanged = this.valueChanged.bind(this);
     this.changePlatform = this.changePlatform.bind(this);
   }
 
   changePlatform(e) {
-    console.log(e.target.value);
+    this.setState({ system: e.target.value });
   }
 
   componentDidMount() {
@@ -111,7 +117,9 @@ class SearchBar extends Component {
     e.preventDefault();
     var queryterm = document.getElementById("query").value;
     console.log("SEARCHING TERM LIKE", queryterm);
-    this.props.search(queryterm);
+    this.state.system === "dhis2"
+      ? this.props.search(queryterm, "dhis2")
+      : this.props.search(queryterm, "mfl");
   }
 
   valueChanged(e) {
@@ -172,32 +180,27 @@ class SearchBar extends Component {
     return (
       <div className={this.props.cname}>
         <div style={{ paddingLeft: "35%" }}>
-          <label
-            class="container"
+          <input
+            type="radio"
+            id="mfl_radio"
             value="kmhfl"
-            onClick={this.changePlatform.bind(this)}
-          >
-            KMHFL
-            <input
-              type="radio"
-              checked="checked"
-              name="radio"
-              value="kmhfl"
-              onClick={this.changePlatform.bind(this)}
-            />
-            <span class="checkmark" />
-          </label>
-          <label class="container">
-            DHIS2
-            <input
-              type="radio"
-              name="radio"
-              value="dhis2"
-              onClick={this.changePlatform.bind(this)}
-            />
-            <span class="checkmark" />
-          </label>
+            name="syst"
+            /* onChange={(this.changeSystem = this.changeSystem.bind(this))} */
+            checked
+          />
+          KMHFL
+          <input
+            type="radio"
+            id="dhis2_radio"
+            name="syst"
+            value="dhis2"
+            /* onChange={(this.changeSystem = this.changeSystem.bind(this))} */
+          />
+          DHIS2
         </div>
+        <br />
+        <br />
+        <br />
         <form
           autoComplete="off"
           style={{ border: "none" }}

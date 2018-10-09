@@ -17,8 +17,8 @@ class HomePage extends Component {
       redirect: false
     };
   }
-  search(term) {
-    this.props.search(term);
+  search(term, system) {
+    this.props.search(term, system);
     this.setState({ redirect: true });
   }
   renderRedirect() {

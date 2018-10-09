@@ -64,7 +64,8 @@ class ResultsPage extends Component {
               className="tab-pane fade"
               id="contact"
               role="tabpanel"
-              aria-labelledby="contact-tab"
+              aria-labelledby="co
+              ntact-tab"
             >
               <Updates />
             </div>
