@@ -1,50 +1,34 @@
-import React, { Component } from "react";
-import Facility from "./Facility";
+import React, { Component } from 'react';
+import Facility from './Facility';
+import DHIS2Facility from './DHIS2Facility';
 
 class SearchResults extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      results: [],
-      count: 0,
-      progress: 0
-    };
-  }
-
-  componentWillReceiveProps(nxt) {
-    var nt = nxt.results.results;
-    this.setState({
-      results: nt,
-      count: nxt.results.count,
-      progress: nxt.progress
-    });
-  }
-  render() {
-    console.log(this.state.results);
-    console.log(this.state.count);
-    console.log(this.state.progress);
-
-    var progress = "";
-    if (this.state.progress === 1) {
-      progress = "found " + this.state.count + " results";
-      this.state.progress = 0;
-    } else {
-      progress = "searching...";
+    constructor(props) {
+        super(props);
+        this.state = {
+            results: props.results,
+            system: props.system,
+            status: 0
+        }
     }
-
-    if (this.state.results !== undefined) {
-      var id = 0;
-      return (
-        <div>
-          <h5>{progress}</h5>
-          {this.state.results.map(function eachfacility(facility) {
-            id = id + 1;
-            return <Facility key={facility.id} id={id} facility={facility} />;
-          })}
-        </div>
-      );
+    componentWillReceiveProps(props) {
+        this.setState({
+            results: props.results,
+            system: props.system,
+            status: props.status
+        })
     }
-  }
+    render() {
+        console.log(this.state.system)
+        var id = 0;
+        return (<div style={{ paddingLeft: "177px" }}>
+            {this.state.status === 1 ? "found " + this.state.results.length + " results" : this.state.status === 0 ? "searching " + localStorage.getItem("app_system") + "..." : ""}
+            {this.state.results.map(facility => {
+                id = id + 1
+                return this.state.system === "KMHFL" ? <Facility facility={facility} key={id} id={id} /> : <DHIS2Facility facility={facility} key={id} />
+            })}
+        </div>);
+    }
 }
 
 export default SearchResults;

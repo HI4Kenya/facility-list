@@ -1,57 +1,39 @@
 import React, { Component } from "react";
-import logo from "./medical.png";
 import SearchBar from "./SearchBar";
-import FilterOptions from "./FilterOptions";
-import "./HomePage.css";
+import logo from "./medical.png"
+import "./css/homepage.css"
 import Title from "./Title";
-import { Redirect } from "react-router-dom";
-
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.search = this.search.bind(this);
-    this.renderRedirect = this.renderRedirect.bind(this);
-    this.runQuery = this.runQuery.bind(this);
-    this.state = {
-      query: "",
-      redirect: false
-    };
+    this.state = { term: "", system: "" };
+    this.searchNow = this.searchNow.bind(this);
   }
-  search(term, system) {
-    this.props.search(term, system);
-    this.setState({ redirect: true });
+  searchNow(term, system) {
+    this.props.searchTerm(term, system)
   }
-  renderRedirect() {
-    if (this.state.redirect) {
-      return <Redirect to="/results" />;
-    }
+
+  runQuery(query, system) {
+    this.props.runQuery(query, system)
   }
-  runQuery(query) {
-    this.props.runQuery(query);
-    this.setState({ redirect: true });
-  }
+
   render() {
     return (
+
       <div className="homepage">
-        {this.renderRedirect()}
         <div className="faze" />
         <div className="holder">
           <div>
             <img src={logo} className="logo" alt="afya360logo" />
           </div>
-
-          <SearchBar
-            cname={"home_searchbar"}
-            search={this.search}
-            counties={this.props.counties}
-            query={this.runQuery}
-          />
-          <FilterOptions
-            runQuery={this.runQuery}
-            cname={"home_filteroptions"}
-          />
+          <Title cname="home_title" />
+          <br />
+          <SearchBar cname={"home_searchbar"} searchTerm={this.searchNow.bind(this)} runQuery={this.runQuery.bind(this)} />
         </div>
       </div>
+
+
+
     );
   }
 }

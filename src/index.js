@@ -1,7 +1,11 @@
-import ReactDOM from "react-dom";
 import React from "react";
+import ReactDOM from "react-dom";
 import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
+import * as serviceWorker from "./serviceWorker";
 
+
+
+//CHECK WHETHER ASSIGNED THAT APP ELSE DISALLOW
 ReactDOM.render(<App />, document.getElementById("root"));
-registerServiceWorker();
+
+serviceWorker.register();

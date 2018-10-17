@@ -1,9 +1,9 @@
 {
-  "name": "afya",
-  "version": "0.0.1",
-  "description": "This app is for accessing KMHFL in DHIS2",
+  "name": "mflclient",
+  "version": "0.1.2",
+  "description": "MFL DHIS2 RESOLUTION APP",
   "main": "index.js",
-  "homepage": "http://197.136.81.99:8082/test/api/apps/afya/",
+  "homepage": "https://test.hiskenya.org/api/apps/mflclient/",
   "license": "GPLv3",
   "scripts": {
     "start": "react-scripts start",
@@ -14,16 +14,15 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "@material-ui/core": "^3.2.2",
     "jquery": "^3.3.1",
+    "d2": "^30.0.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5"
+    "react-scripts": "2.0.4"
   },
   "manifest.webapp": {
-    "name": "afya",
+    "name": "mflclient",
     "icons": {
       "48": "icon.png"
     },
@@ -36,5 +35,11 @@
         "href": "*"
       }
     }
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

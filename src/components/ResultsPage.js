@@ -1,78 +1,40 @@
 import React, { Component } from "react";
+import NavBar from "./NavBar"
 import SearchResults from "./SearchResults";
-import ResolutionReports from "./ResolutionReports";
-import Updates from "./Updates";
-import NavBar from "./NavBar";
-import "./ResultsPage.css";
+import Resolutions from "./Resolutions";
 
 class ResultsPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      results: []
-    };
-    this.search = this.search.bind(this);
-    this.runQuery = this.runQuery.bind(this);
+    this.state = { results: [], system: "", status: 0 };
   }
 
-  search(queryterm) {
-    this.props.search(queryterm);
+  searchTerm(term, system) {
+    this.props.searchTerm(term, system)
   }
-
-  runQuery(q) {
-    this.props.runQuery(q);
-  }
-
-  componentWillReceiveProps(nxt) {
-    var currentres = nxt.results;
+  componentWillReceiveProps(props) {
     this.setState({
-      results: currentres
-    });
+      results: props.results, system: props.system, status: props.status
+    })
+  }
+
+  runQuery(query, system) {
+    this.props.runQuery(query, system)
   }
   render() {
-    var currentres = this.props.results;
     return (
-      <div className="resultspage">
-        <NavBar
-          search={this.search}
-          term={this.props.term}
-          runQuery={this.runQuery}
-        />
+      <div className="results">
 
-        <div className="" style={{ paddingLeft: "177px" }}>
-          <div className="tab-content" id="myTabContent">
-            <div
-              className="tab-pane fade show active"
-              id="home"
-              role="tabpanel"
-              aria-labelledby="home-tab"
-            >
-              <SearchResults
-                results={currentres}
-                progress={this.props.progress}
-              />
-            </div>
-            <div
-              className="tab-pane fade"
-              id="profile"
-              role="tabpanel"
-              aria-labelledby="profile-tab"
-            >
-              <ResolutionReports results={currentres} />
-            </div>
-            <div
-              className="tab-pane fade"
-              id="contact"
-              role="tabpanel"
-              aria-labelledby="co
-              ntact-tab"
-            >
-              <Updates />
-            </div>
+        <NavBar runQuery={this.runQuery.bind(this)} searchTerm={this.searchTerm.bind(this)} />
+        <div className="tab-content" id="myTabContent">
+          <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <SearchResults results={this.state.results} system={this.state.system} status={this.state.status} />
           </div>
+          <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <Resolutions results={this.state.results} system={this.state.system} status={this.state.status} /></div>
         </div>
-      </div>
-    );
+
+      </div>);
   }
 }
 
